@@ -33,6 +33,8 @@ __For example: Call-A ouptuts list of serverid, Call-B need serverid to find ins
 ```git clone https://github.com/bjin01/autoapi.git```
 
 2. Copy the binary autoapi to your preferred binary directory which is in your path.
+  2.1 copy ```client.go``` into ```$GOPATH/src/github.com/SHyx0rmZ/go-xmlrpc```
+  I will have to find a better solution for this modification.
 
 3. Prepare your configuration file in yaml format.
 As an example look at the config.yml file
