@@ -3,6 +3,8 @@
 This program automates spacewalk/uyuni/SUSE-Manager xmlrpc api calls by reading out from an user-given 
 configuration file in yaml format. The api call's output can be used as input for next api call and so on.
 
+This is a program written in go.
+
 ## __Benefits__
 * No need to ask scripter to create many python/perl/etc. script just to automate some api calls. You can do it yourself. __Save time, be flexible and be independant__ :-)
 * The yaml config file allows to puzzle your desired api calls with arbitrary input and output vars, and automate it as you want. 
