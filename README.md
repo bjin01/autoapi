@@ -16,7 +16,12 @@ __For example: Call-A ouptuts list of serverid, Call-B need serverid to find ins
 
 ## Prerequisites:
 * SUSE Manager 4.0.x (tested)
-* ....
+* ...
+
+## 3rd party go-lib needed:
+* github.com/SHyx0rmZ/go-xmlrpc (for xmlrpc)
+* gopkg.in/yaml.v2 (for yaml file reading)
+
 
 ## __Usage__:
 1. Download this github repo to your local machine:
@@ -87,3 +92,37 @@ finalmethod:
 ## limitations:
 * the program can only take up to 3 api calls.
 * the program can only accept up to 10 input parameters for each api call.
+
+## Next coming:
+* optimize codes
+* continue testing more api calls.
+* continues bug-fixing
+
+## 3rd party go-lib modifications:
+* I needed to change the default boolean constant "true" and "false" to "1" and "0" because spacewalk xmlrpc expects that.
+In the client.go (github.com/SHyx0rmZ/go-xmlrpc) below code snippet has been added from me.
+```
+if strings.Contains(buffer.String(), "<boolean>true</boolean>") {
+
+		newstrings := strings.Replace(buffer.String(), "<boolean>true</boolean>", "<boolean>1</boolean>", 1)
+		buffer.Reset()
+		buffer.WriteString(newstrings)
+
+	} else if strings.Contains(buffer.String(), "<boolean>false</boolean>") {
+
+		newstrings := strings.Replace(buffer.String(), "<boolean>false</boolean>", "<boolean>0</boolean>", 1)
+		buffer.Reset()
+		buffer.WriteString(newstrings)
+
+	}
+  ```
+* due to the fact that spacewalk xmlrpc expects datetime.iso8601 format "20060102T15:04:05" I had to change the format as below in client.go (github.com/SHyx0rmZ/go-xmlrpc) file.
+```
+  case reflect.Struct:
+			if v.Type().PkgPath() != "time" || v.Type().Name() != "Time" {
+				return nil, &Error{"Invalid type " + v.Kind().String()}
+			}
+
+			t := arg.(time.Time)
+			results = append(results, value{DateTimeTag: t.Format("20060102T15:04:05")})
+```
