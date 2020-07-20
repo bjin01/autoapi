@@ -1,4 +1,4 @@
-# SUSE Manager - api automation - *autoapi*
+#SUSE Manager - api automation - *autoapi*
 
 This program automates spacewalk/uyuni/SUSE-Manager xmlrpc api calls by reading out from an user-given 
 configuration file in yaml format. The api call's output can be used as input for next api call and so on.
