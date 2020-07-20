@@ -10,16 +10,16 @@ __For example: Call-A ouptuts list of serverid, Call-B need serverid to find ins
 
 
 ## __Usage__:
-Download this github repo to your local machine:
+1. Download this github repo to your local machine:
 
 ```git clone https://github.com/bjin01/autoapi.git```
 
-Copy the binary autoapi to your preferred binary directory which is in your path.
+2. Copy the binary autoapi to your preferred binary directory which is in your path.
 
-Prepare your configuration file in yaml format.
+3. Prepare your configuration file in yaml format.
 As an example look at the config.yml file
 
-Run the program with your configuration file.
+4. Run the program with your configuration file.
 ```./autoapi -config ./config.yml```
 
 __Notes:__
@@ -36,7 +36,7 @@ You need to follow this rules in order to create your configuration file.
   * e.g. bool.true means the input variable is of type boolean and the value is true or false
 
 
-**_below configuration file shows an example how the parameters for 3 api calls are being used.**_
+__below configuration file shows an example how the parameters for 3 api calls are being used.__
 
 ```
 listmethod1:
@@ -46,7 +46,6 @@ listmethod1:
        
   out_variablenames:  
     - id
-
 
 listmethod2:
   methodname: system.getRelevantErrataByType
@@ -68,7 +67,8 @@ finalmethod:
     4_allowModules: bool.true
 
   out_variablenames: 
-    - actionId```
+    - actionId
+```
 
 ### limitations:
 * the program can only take up to 3 api calls.
