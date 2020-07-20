@@ -16,11 +16,15 @@ __For example: Call-A ouptuts list of serverid, Call-B need serverid to find ins
 
 ## Prerequisites:
 * SUSE Manager 4.0.x (tested)
-* ...
+* go 1.14 (from packagehub for sles15sp1)
 
 ## 3rd party go-lib needed:
+```cd $GOPATH```
 * github.com/SHyx0rmZ/go-xmlrpc (for xmlrpc)
+  ```go get github.com/SHyx0rmZ/go-xmlrpc```
+
 * gopkg.in/yaml.v2 (for yaml file reading)
+  ```go get gopkg.in/yaml.v2```
 
 
 ## __Usage__:
