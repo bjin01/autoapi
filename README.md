@@ -4,10 +4,17 @@ This program automates spacewalk/uyuni/SUSE-Manager xmlrpc api calls by reading 
 configuration file in yaml format. The api call's output can be used as input for next api call and so on.
 
 ## __Benefits__
-* the program automates api calls with your desired input parameters and values, including api url, username, password etc.
+* not need to ask scripter to create a new and a new and another new python script to automate some api calls. You can do it yourself. __Save time and be flexible__
+* The yaml config file allows to puzzle your desired api calls with arbitrary input and output vars, and automate it as you want. 
+
+* the program automates api calls with your desired input parameters and values, including api url, username, password etc. Higher security as the file should be root user rw only.
 * the program can use output from previous api call to be used as input for the next api call.
+
 __For example: Call-A ouptuts list of serverid, Call-B need serverid to find installable patches and returns a list of patches and finally the last Call-C will use the list of serverid and list of patches to schedule installation jobs.__
 
+## Prerequisites:
+* SUSE Manager 4.0.x (tested)
+* ....
 
 ## __Usage__:
 1. Download this github repo to your local machine:
@@ -70,6 +77,6 @@ finalmethod:
     - actionId
 ```
 
-### limitations:
+## limitations:
 * the program can only take up to 3 api calls.
 * the program can only accept up to 10 input parameters for each api call.
