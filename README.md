@@ -102,7 +102,7 @@ finalmethod:
 * I needed to change the default boolean constant "true" and "false" to "1" and "0" because spacewalk xmlrpc expects that.
 In the client.go (github.com/SHyx0rmZ/go-xmlrpc) below code snippet has been added from me.
 ```
-if strings.Contains(buffer.String(), "<boolean>true</boolean>") {
+  if strings.Contains(buffer.String(), "<boolean>true</boolean>") {
 
 		newstrings := strings.Replace(buffer.String(), "<boolean>true</boolean>", "<boolean>1</boolean>", 1)
 		buffer.Reset()
