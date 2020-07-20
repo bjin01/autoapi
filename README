@@ -1,4 +1,3 @@
-# This is an <h1> tag
 # SUSE Manager - api automation - *autoapi*
 
 This program automates spacewalk/uyuni/SUSE-Manager xmlrpc api calls by reading out from an user-given 
