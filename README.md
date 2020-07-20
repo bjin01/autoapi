@@ -32,7 +32,8 @@ You need to follow this rules in order to create your configuration file.
 * the output variables will be read as a list. The order of the output var depends on the order in the configuration file.
 look the section out_variablenames
 
-```listmethod1:
+```
+listmethod1:
   methodname: systemgroup.listActiveSystemsInGroup
   input_map:
     1_systemGroupName: test2
