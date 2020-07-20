@@ -4,10 +4,10 @@ This program automates spacewalk/uyuni/SUSE-Manager xmlrpc api calls by reading 
 configuration file in yaml format. The api call's output can be used as input for next api call and so on.
 
 ## __Benefits__
-* not need to ask scripter to create a new and a new and another new python script to automate some api calls. You can do it yourself. __Save time and be flexible__
+* No need to ask scripter to create many python/perl/etc. script just to automate some api calls. You can do it yourself. __Save time, be flexible and be independant__ :-)
 * The yaml config file allows to puzzle your desired api calls with arbitrary input and output vars, and automate it as you want. 
 
-* the program automates api calls with your desired input parameters and values, including api url, username, password etc. Higher security as the file should be root user rw only.
+* The program automates api calls with your desired input parameters and values, including api url, username, password etc. Higher security as the file should be root user rw only.
 * the program can use output from previous api call to be used as input for the next api call.
 
 __For example: Call-A ouptuts list of serverid, Call-B need serverid to find installable patches and returns a list of patches and finally the last Call-C will use the list of serverid and list of patches to schedule installation jobs.__
@@ -46,6 +46,11 @@ You need to follow this rules in order to create your configuration file.
 __below configuration file shows an example how the parameters for 3 api calls are being used.__
 
 ```
+server:
+  apiurl: http://suma.is.great/rpc/api
+  username: admin
+  password: hiphiphurra
+
 listmethod1:
   methodname: systemgroup.listActiveSystemsInGroup
   input_map:
