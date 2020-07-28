@@ -75,6 +75,7 @@ func main() {
 
 	if cfg.Finalmethod.Methodname != "" {
 		//fmt.Printf("hallo %v\n", cfg.Finalmethod.InputVars)
+
 		finalmethod.Finalmethod(cfg.Server.ApiUrl, cfg.Server.Username, cfg.Server.Password,
 			cfg.Finalmethod.Methodname, cfg.Finalmethod.InputVars, SortedFinalmethodOutvars,
 			resultfinal, resultsmethod1, resultsmethod2)

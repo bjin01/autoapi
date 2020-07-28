@@ -39,7 +39,11 @@ type Config struct {
 	} `yaml:"listmethod2"`
 
 	Finalmethod struct {
-		Methodname   string                 `yaml:"methodname"`
+		Methodname string `yaml:"methodname"`
+		Options    struct {
+			Meth2dependmeth1 bool `yaml:"meth2_depend_meth1"`
+		} `yaml:"options"`
+
 		InputVars    map[string]interface{} `yaml:"input_map"`
 		Outvariables []string               `yaml:"out_variablenames"`
 		Outputformat struct {

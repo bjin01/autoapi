@@ -91,6 +91,7 @@ func callapi(client xmlrpc.Client, listmethod string, sessionkey string,
 		check(err)
 		GetVal(u, searchfields, result, datelist, intlist, strlist)
 	case len(myargs) == 3:
+		fmt.Println(myargs[1])
 		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1], myargs[2])
 		check(err)
 		GetVal(u, searchfields, result, datelist, intlist, strlist)
@@ -103,24 +104,27 @@ func callapi(client xmlrpc.Client, listmethod string, sessionkey string,
 
 func createinputargs(inputmapvalslice []interface{}, resultsmethod1 *printresult.PrintResults,
 	resultsmethod2 *printresult2.PrintResults, h int) ([]interface{}, int) {
-	myargs := make([]interface{}, 0)
 
+	myargs := make([]interface{}, 0)
 	var loopnum int
 
 	for i := 0; i < len(inputmapvalslice); i++ {
+
 		s, num := splitinputvar(inputmapvalslice[i], resultsmethod1, resultsmethod2, h)
 		if s == nil {
 			fmt.Printf("%v is empty: %v ", inputmapvalslice[i], s)
 			fmt.Printf("\nexiting.\n")
 			os.Exit(3)
 		}
+
 		myargs = append(myargs, s)
+
 		if num > 0 {
 			loopnum = num
 		}
-
 	}
 
+	fmt.Printf("1myargs is: %v\n", myargs)
 	return myargs, loopnum
 
 }
@@ -239,6 +243,7 @@ func getfromlistmethods(s string, resmethod1 *printresult.PrintResults, resmetho
 			for k, v := range resmethod2.Intmap {
 				if k == s {
 					loopnum = 0
+					fmt.Printf("get here? %v\n", v)
 					return v, loopnum
 
 				}

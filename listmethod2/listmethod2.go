@@ -16,6 +16,10 @@ type Result struct {
 	Datemap   []map[string]interface{}
 }
 
+type ResultinMap struct {
+	IdMap map[interface{}]interface{}
+}
+
 func check(err error) {
 	if err != nil {
 		log.Fatal(err)

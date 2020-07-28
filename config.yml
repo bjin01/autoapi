@@ -13,23 +13,24 @@ listmethod1:
 
 
 listmethod2:
-  methodname: system.getRelevantErrataByType
+  methodname: system.getRelevantErrata
   input_map:
     1_serverid: listmethod1.id
-    2_advisoryType: "Security Advisory"
 
   out_variablenames: 
     - id
     - advisory_synopsis
     - advisory_name
+    - advisory_type
 
 finalmethod:
   methodname: system.scheduleApplyErrata
+  options:
+    meth2_depend_meth1: true
   input_map:
-    1_serverid: listmethod1.array.id
+    1_serverid: listmethod1.id
     2_errataId: listmethod2.array.id
-    3_earliestOccurrence: datetime.2020-07-30T21:30:00
-    4_allowModules: bool.true
+    3_earliestOccurrence: datetime.2020-08-23T09:45:00
 
   out_variablenames: 
     - actionId
