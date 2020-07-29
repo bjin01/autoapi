@@ -51,18 +51,20 @@ func Finalmethod(url string, user string, password string, listmethod string,
 		}
 	}
 
-	myargs, loopnum := createinputargs(inputmapvalslice, resultsmethod1, resultsmethod2, 0)
+	myargs, loopnum, myargs_empty := createinputargs(inputmapvalslice, resultsmethod1, resultsmethod2, 0)
 
 	if loopnum > 0 {
 		for i := 0; i < loopnum; i++ {
 
-			myargs, _ := createinputargs(inputmapvalslice, resultsmethod1, resultsmethod2, i)
-
-			callapi(client, listmethod, f.Text(), searchfields, myargs, result)
-
+			myargs, _, myargs_empty := createinputargs(inputmapvalslice, resultsmethod1, resultsmethod2, i)
+			if myargs_empty == false {
+				callapi(client, listmethod, f.Text(), searchfields, myargs, result)
+			}
 		}
 	} else {
-		callapi(client, listmethod, f.Text(), searchfields, myargs, result)
+		if myargs_empty == false {
+			callapi(client, listmethod, f.Text(), searchfields, myargs, result)
+		}
 	}
 
 	_, err = client.Call("auth.logout", f.Text())
@@ -102,16 +104,18 @@ func callapi(client xmlrpc.Client, listmethod string, sessionkey string,
 }
 
 func createinputargs(inputmapvalslice []interface{}, resultsmethod1 *printresult.PrintResults,
-	resultsmethod2 *printresult2.PrintResults, h int) ([]interface{}, int) {
+	resultsmethod2 *printresult2.PrintResults, h int) ([]interface{}, int, bool) {
 
 	myargs := make([]interface{}, 0)
 	var loopnum int
+	var myargs_empty bool
 
 	for i := 0; i < len(inputmapvalslice); i++ {
 
 		s, num := splitinputvar(inputmapvalslice[i], resultsmethod1, resultsmethod2, h)
 		if s == nil {
-			fmt.Printf("%v is empty: %v ", inputmapvalslice[i], s)
+			fmt.Printf("%v is empty: %v \n", inputmapvalslice[i], s)
+			myargs_empty = true
 
 		}
 
@@ -123,7 +127,7 @@ func createinputargs(inputmapvalslice []interface{}, resultsmethod1 *printresult
 	}
 
 	fmt.Printf("1myargs is: %v\n", myargs)
-	return myargs, loopnum
+	return myargs, loopnum, myargs_empty
 
 }
 
