@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
+	"github.com/bjin01/autoapi/dependmethod"
 	"github.com/bjin01/autoapi/finalmethod"
 	"github.com/bjin01/autoapi/getyaml"
 	"github.com/bjin01/autoapi/listmethod1"
@@ -41,6 +43,7 @@ func main() {
 	result := new(listmethod1.Result)
 	result2 := new(listmethod2.Result)
 	resultfinal := new(finalmethod.Result)
+	//resultdependmethod := new(dependmethod.Result)
 	var SortedListmethod1Outvars, SortedListmethod2Outvars, SortedFinalmethodOutvars []string
 	if len(cfg.Listmethod1.Outvariables) != 0 {
 		SortedListmethod1Outvars = sort.SortSlice(cfg.Listmethod1.Outvariables)
@@ -65,7 +68,7 @@ func main() {
 	resultsmethod1 := printresult.Printresult(result, sort.SortSlice(cfg.Listmethod1.Outvariables))
 
 	if cfg.Listmethod2.Methodname != "" {
-
+		fmt.Printf("cfg.Listmethod2.InputVars: %v\n", cfg.Listmethod2.InputVars)
 		//fmt.Printf("%v\n", cfg.Listmethod2.InputVars)
 		listmethod2.Listmethod2(cfg.Server.ApiUrl, cfg.Server.Username, cfg.Server.Password,
 			cfg.Listmethod2.Methodname, cfg.Listmethod2.InputVars, SortedListmethod2Outvars, result2, resultsmethod1)
@@ -75,10 +78,15 @@ func main() {
 
 	if cfg.Finalmethod.Methodname != "" {
 		//fmt.Printf("hallo %v\n", cfg.Finalmethod.InputVars)
+		if cfg.Finalmethod.Options.Meth2dependmeth1 == true {
+			dependmethod.Dependmethod(cfg.Finalmethod.InputVars, cfg.Listmethod2.InputVars, resultsmethod1, cfg,
+				SortedListmethod2Outvars, SortedFinalmethodOutvars)
+		} else {
+			finalmethod.Finalmethod(cfg.Server.ApiUrl, cfg.Server.Username, cfg.Server.Password,
+				cfg.Finalmethod.Methodname, cfg.Finalmethod.InputVars, SortedFinalmethodOutvars,
+				resultfinal, resultsmethod1, resultsmethod2)
+		}
 
-		finalmethod.Finalmethod(cfg.Server.ApiUrl, cfg.Server.Username, cfg.Server.Password,
-			cfg.Finalmethod.Methodname, cfg.Finalmethod.InputVars, SortedFinalmethodOutvars,
-			resultfinal, resultsmethod1, resultsmethod2)
 	}
 
 	printfinalresult.Printresult(resultfinal, sort.SortSlice(cfg.Finalmethod.Outvariables))

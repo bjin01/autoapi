@@ -130,7 +130,7 @@ func splitinputvar(v interface{}, resultsmethod1 *printresult.PrintResults, h in
 
 			if len(x) != 0 {
 
-				k, num := getfromlistmethod1(x[len(x)-1], resultsmethod1, h)
+				k, num := Getfromlistmethod1(x[len(x)-1], resultsmethod1, h)
 
 				return k, num
 			}
@@ -141,7 +141,7 @@ func splitinputvar(v interface{}, resultsmethod1 *printresult.PrintResults, h in
 	return v, 0
 }
 
-func getfromlistmethod1(s string, resmethod1 *printresult.PrintResults, h int) (interface{}, int) {
+func Getfromlistmethod1(s string, resmethod1 *printresult.PrintResults, h int) (interface{}, int) {
 	var x interface{}
 	var loopnum int
 
