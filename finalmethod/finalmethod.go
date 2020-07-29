@@ -3,7 +3,6 @@ package finalmethod
 import (
 	"fmt"
 	"log"
-	"os"
 	"sort"
 	"strings"
 	"time"
@@ -113,8 +112,7 @@ func createinputargs(inputmapvalslice []interface{}, resultsmethod1 *printresult
 		s, num := splitinputvar(inputmapvalslice[i], resultsmethod1, resultsmethod2, h)
 		if s == nil {
 			fmt.Printf("%v is empty: %v ", inputmapvalslice[i], s)
-			fmt.Printf("\nexiting.\n")
-			os.Exit(3)
+
 		}
 
 		myargs = append(myargs, s)
