@@ -5,6 +5,19 @@ configuration file in yaml format. The api call's output can be used as input fo
 
 The program is written in go.
 
+## Updates: 31. 07. 2020
+forked xmlrpc and changed import to use forked repo.
+added a new 'dependmethod' which is taking the output from method1 and loop through it as input for method2. 
+This 'dependmethod' is needed for example:
+  If method 1 outputs a list of active systems in a given group.
+  Then method 2 uses the serverid and seeks for every single serverid the relevant errata as output 
+  The finalmethod will then creates apply errata job for each serverid with their relevant errata.
+  For this purpose a new 'opotion' in yaml config file has been introduced (see config.yml)
+    
+    ```options:
+         meth2_depend_meth1: true```
+
+
 ## __Benefits__
 * No need to ask scripter to create many python/perl/etc. script just to automate some api calls. You can do it by yourself. __Save time, be flexible and be independant__ :-)
 * The yaml config file allows to puzzle your desired api calls with arbitrary input and output vars, and automate it as you want. 
@@ -20,8 +33,8 @@ __For example: Call-A ouptuts list of serverid, Call-B need serverid to find ins
 
 ## 3rd party go-lib needed:
 ```cd $GOPATH```
-* github.com/SHyx0rmZ/go-xmlrpc (for xmlrpc)
-  ```go get github.com/SHyx0rmZ/go-xmlrpc```
+* Download the xmlrpc lib from my repo which is a fork.
+  ```go get github.com/bjin01/go-xmlrpc```
 
 * gopkg.in/yaml.v2 (for yaml file reading)
   ```go get gopkg.in/yaml.v2```
@@ -32,14 +45,10 @@ __For example: Call-A ouptuts list of serverid, Call-B need serverid to find ins
 
 ```git clone https://github.com/bjin01/autoapi.git```
 
-2. Copy the binary autoapi to your preferred binary directory which is in your path.
-  2.1 copy ```client.go``` into ```$GOPATH/src/github.com/SHyx0rmZ/go-xmlrpc```
-  I will have to find a better solution for this modification.
-
-3. Prepare your configuration file in yaml format.
+2. Prepare your configuration file in yaml format.
 As an example look at the config.yml file
 
-4. Run the program with your configuration file.
+3. Run the program with your configuration file.
 ```./autoapi -config ./config.yml```
 
 __Notes:__
