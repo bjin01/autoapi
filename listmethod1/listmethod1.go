@@ -6,7 +6,6 @@ import (
 	"sort"
 
 	"github.com/bjin01/go-xmlrpc"
-	//"github.com/SHyx0rmZ/go-xmlrpc"
 )
 
 type Result struct {
