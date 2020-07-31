@@ -6,13 +6,13 @@ configuration file in yaml format. The api call's output can be used as input fo
 The program is written in go.
 
 ## Updates: 31. 07. 2020
-forked xmlrpc and changed import to use forked repo.
-added a new 'dependmethod' which is taking the output from method1 and loop through it as input for method2. 
-This 'dependmethod' is needed for example:
-  If method 1 outputs a list of active systems in a given group.
-  Then method 2 uses the serverid and seeks for every single serverid the relevant errata as output 
-  The finalmethod will then creates apply errata job for each serverid with their relevant errata.
-  For this purpose a new 'opotion' in yaml config file has been introduced (see config.yml)
+* forked xmlrpc and changed import to use forked repo.
+* added a new 'dependmethod' which is taking the output from method1 and loop through it as input for method2. 
+* This 'dependmethod' is needed for example:
+    If method 1 outputs a list of active systems in a given group.
+    Then method 2 uses the serverid and seeks for every single serverid the relevant errata as output 
+    The finalmethod will then creates apply errata job for each serverid with their relevant errata.
+    For this purpose a new 'opotion' in yaml config file has been introduced (see config.yml)
     
 ```
     options:
