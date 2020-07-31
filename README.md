@@ -14,8 +14,10 @@ This 'dependmethod' is needed for example:
   The finalmethod will then creates apply errata job for each serverid with their relevant errata.
   For this purpose a new 'opotion' in yaml config file has been introduced (see config.yml)
     
-    ```options:
-         meth2_depend_meth1: true```
+```
+    options:
+         meth2_depend_meth1: true
+```
 
 
 ## __Benefits__
