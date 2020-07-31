@@ -20,11 +20,11 @@ The program is written in go.
 ```
 
 ## Get api method and parameters from API doc
-In order to run the program you have to compose the config.yml file with method name, input and output parameters you wish.
-Go to SUSE Manager Web UI - left side menue tree -> Help -> API -> Overview
-Select a method namespace e.g. systemgroup
-Select in the namespace systemgroup a method e.g. listAdministrators
-Now you find documented input parameters needed: sessionKey and systemGroupName.
+* In order to run the program you have to compose the config.yml file with method name, input and output parameters you wish.
+* Go to SUSE Manager Web UI - left side menue tree -> Help -> API -> Overview
+* Select a method namespace e.g. systemgroup
+* Select in the namespace systemgroup a method e.g. listAdministrators
+* Now you find documented input parameters needed: sessionKey and systemGroupName.
 The sessionKey is not needed as this will be automatically added in the program.
 You need to copy paste systemGroupName into the config.yml as input e.g.
 ```
