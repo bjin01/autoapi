@@ -10,15 +10,37 @@ The program is written in go.
 * added a new 'dependmethod' which is taking the output from method1 and loop through it as input for method2. 
 * This 'dependmethod' is needed for example:
     If method 1 outputs a list of active systems in a given group.
-    Then method 2 uses the serverid and seeks for every single serverid the relevant errata as output 
-    The finalmethod will then creates apply errata job for each serverid with their relevant errata.
-    For this purpose a new 'opotion' in yaml config file has been introduced (see config.yml)
+    Then method 2 uses the output from method1 (serverid) and seeks for every single serverid the relevant errata as output 
+    The finalmethod will then creates apply-errata job for each serverid with their relevant errata.
+    For this purpose a new 'opotion' in yaml config file has been introduced (see config.yml) to trigger the 'dependmethod'
     
 ```
     options:
          meth2_depend_meth1: true
 ```
 
+## Get api method and parameters from API doc
+In order to run the program you have to compose the config.yml file with method name, input and output parameters you wish.
+Go to SUSE Manager Web UI - left side menue tree -> Help -> API -> Overview
+Select a method namespace e.g. systemgroup
+Select in the namespace systemgroup a method e.g. listAdministrators
+Now you find documented input parameters needed: sessionKey and systemGroupName.
+The sessionKey is not needed as this will be automatically added in the program.
+You need to copy paste systemGroupName into the config.yml as input e.g.
+```
+listmethod1:
+  methodname: systemgroup.listActiveSystemsInGroup
+  input_map:
+    1_systemGroupName: test2
+       
+  out_variablenames:  
+    - id
+```
+__Becareful:__ 
+* the methodname is case-sensitive.
+* The input parameter names must not be the same as in the doc but the value has to be in the correct type. If input parameters are not given correctly the api call will fail.
+* For correct ordering of the input parameters you have to prefix it with 1_, 2_, 3_ etc.
+* For the order of output parameters the ordering is done based on order of the lines.
 
 ## __Benefits__
 * No need to ask scripter to create many python/perl/etc. script just to automate some api calls. You can do it by yourself. __Save time, be flexible and be independant__ :-)
@@ -83,24 +105,26 @@ listmethod1:
   out_variablenames:  
     - id
 
+
 listmethod2:
-  methodname: system.getRelevantErrataByType
+  methodname: system.getRelevantErrata
   input_map:
     1_serverid: listmethod1.id
-    2_advisoryType: "Security Advisory"
 
   out_variablenames: 
     - id
     - advisory_synopsis
     - advisory_name
+    - advisory_type
 
 finalmethod:
   methodname: system.scheduleApplyErrata
+  options:
+    meth2_depend_meth1: true
   input_map:
-    1_serverid: listmethod1.array.id
+    1_serverid: listmethod1.id
     2_errataId: listmethod2.array.id
-    3_earliestOccurrence: datetime.2020-07-30T21:30:00
-    4_allowModules: bool.true
+    3_earliestOccurrence: datetime.2020-08-23T09:45:00
 
   out_variablenames: 
     - actionId
@@ -108,7 +132,7 @@ finalmethod:
 
 ## limitations:
 * the program can only take up to 3 api calls.
-* the program can only accept up to 10 input parameters for each api call.
+* the program can only accept up to 5 input parameters for each api call.
 
 ## Next coming:
 * optimize codes
