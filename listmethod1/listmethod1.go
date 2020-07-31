@@ -5,7 +5,7 @@ import (
 	"log"
 	"sort"
 
-	"github.com/bjin01/go-xmlrpc-uyuni"
+	"github.com/bjin01/go-xmlrpc"
 	//"github.com/SHyx0rmZ/go-xmlrpc"
 )
 

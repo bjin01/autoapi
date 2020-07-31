@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/bjin01/autoapi/printresult"
-	"github.com/bjin01/go-xmlrpc-uyuni"
+	"github.com/bjin01/go-xmlrpc"
 )
 
 type Result struct {
