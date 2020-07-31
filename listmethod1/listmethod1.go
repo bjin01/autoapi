@@ -5,7 +5,8 @@ import (
 	"log"
 	"sort"
 
-	"github.com/SHyx0rmZ/go-xmlrpc"
+	"github.com/bjin01/go-xmlrpc-uyuni"
+	//"github.com/SHyx0rmZ/go-xmlrpc"
 )
 
 type Result struct {

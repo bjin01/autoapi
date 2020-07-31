@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/SHyx0rmZ/go-xmlrpc"
 	"github.com/bjin01/autoapi/printresult"
 	"github.com/bjin01/autoapi/printresult2"
+	"github.com/bjin01/go-xmlrpc-uyuni"
 )
 
 type Result struct {

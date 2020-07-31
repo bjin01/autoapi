@@ -6,8 +6,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/SHyx0rmZ/go-xmlrpc"
 	"github.com/bjin01/autoapi/printresult"
+	"github.com/bjin01/go-xmlrpc-uyuni"
 )
 
 type Result struct {
