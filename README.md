@@ -76,7 +76,7 @@ As an example look at the config.yml file
 You can copy the binary ```autoapi``` to ```/usr/local/sbin``` or run it from the directory where you git cloned the repo to.
 ```
 # cp autoapi /usr/local/sbin/
-autoapi -config config.yml
+# autoapi -config config.yml
 
 ```
 or
