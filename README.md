@@ -73,6 +73,14 @@ __For example: Call-A ouptuts list of serverid, Call-B need serverid to find ins
 As an example look at the config.yml file
 
 3. Run the program with your configuration file.
+You can copy the binary ```autoapi``` to ```/usr/local/sbin``` or run it from the directory where you git cloned the repo to.
+```
+# cp autoapi /usr/local/sbin/
+autoapi -config config.yml
+
+```
+or
+
 ```./autoapi -config ./config.yml```
 
 __Notes:__
