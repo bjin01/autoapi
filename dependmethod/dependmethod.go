@@ -43,6 +43,8 @@ func Dependmethod(inputsfinal map[string]interface{}, inputslist2 map[string]int
 						cfg.Finalmethod.InputVars[k] = z
 						fmt.Printf("The return from Listmethod2 is: %v, %v\n", cfg.Listmethod2.InputVars, i)
 						fmt.Printf("The return from Finalmethod is: %v, %v\n", cfg.Finalmethod.InputVars, i)
+						//need to set cfg.Finalmethod.Options.Meth2dependmeth1 to false to avoid forking into
+						//dependmethd again.
 						cfg.Finalmethod.Options.Meth2dependmeth1 = false
 						result2 := new(listmethod2.Result)
 						resultfinal := new(finalmethod.Result)

@@ -64,6 +64,10 @@ func Listmethod1(url string, user string, password string, listmethod string,
 			u, err := client.Call(listmethod, f.Text(), myargs[0], myargs[1], myargs[2], myargs[3])
 			check(err)
 			GetVal(u, searchfields, result, datelist, intlist, strlist)
+		case len(myargs) == 5:
+			u, err := client.Call(listmethod, f.Text(), myargs[0], myargs[1], myargs[2], myargs[3], myargs[4])
+			check(err)
+			GetVal(u, searchfields, result, datelist, intlist, strlist)
 		}
 	} else {
 		u, err := client.Call(listmethod, f.Text())
@@ -100,6 +104,16 @@ func GetVal(v xmlrpc.Value, searchfields []string, result *Result,
 				}
 			} else {
 				GetVal3(v.Value(), searchfields, "nil", result, datelist, intlist, strlist)
+			}
+		}
+	}
+
+	if len(v.Values()) == 0 && len(v.Members()) == 0 {
+		if len(searchfields) != 0 {
+			for h := 0; h < len(searchfields); h++ {
+
+				GetVal3(v, searchfields, searchfields[h], result, datelist, intlist, strlist)
+
 			}
 		}
 	}

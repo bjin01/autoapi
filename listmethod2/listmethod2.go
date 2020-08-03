@@ -5,6 +5,7 @@ import (
 	"log"
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/bjin01/autoapi/printresult"
 	"github.com/bjin01/go-xmlrpc"
@@ -99,6 +100,10 @@ func callapi(client xmlrpc.Client, listmethod string, sessionkey string,
 		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1], myargs[2], myargs[3])
 		check(err)
 		GetVal(u, searchfields, result, datelist, intlist, strlist)
+	case len(myargs) == 5:
+		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1], myargs[2], myargs[3], myargs[4])
+		check(err)
+		GetVal(u, searchfields, result, datelist, intlist, strlist)
 	}
 }
 
@@ -133,6 +138,33 @@ func splitinputvar(v interface{}, resultsmethod1 *printresult.PrintResults, h in
 				k, num := Getfromlistmethod1(x[len(x)-1], resultsmethod1, h)
 
 				return k, num
+			}
+		} else if strings.Contains(s, "bool") {
+			x := strings.Split(s, ".")
+			//fmt.Printf("x is: %v\n", x)
+			if len(x) != 0 {
+				if x[len(x)-1] == "true" || x[len(x)-1] == "1" {
+
+					k := true
+
+					return k, 0
+				}
+				if x[len(x)-1] == "false" || x[len(x)-1] == "0" {
+					k := false
+					return k, 0
+				}
+
+			}
+		} else if strings.Contains(s, "datetime") {
+			x := strings.Split(s, ".")
+			//fmt.Printf("x is: %v\n", x)
+			if len(x) != 0 {
+
+				const layout = "2006-01-02T15:04:05"
+				k, _ := time.Parse(layout, x[len(x)-1])
+
+				return k, 0
+
 			}
 		} else {
 			return v, 0
@@ -203,6 +235,16 @@ func GetVal(v xmlrpc.Value, searchfields []string, result *Result,
 				}
 			} else {
 				GetVal3(v.Value(), searchfields, "nil", result, datelist, intlist, strlist)
+			}
+		}
+	}
+
+	if len(v.Values()) == 0 && len(v.Members()) == 0 {
+		if len(searchfields) != 0 {
+			for h := 0; h < len(searchfields); h++ {
+
+				GetVal3(v, searchfields, searchfields[h], result, datelist, intlist, strlist)
+
 			}
 		}
 	}

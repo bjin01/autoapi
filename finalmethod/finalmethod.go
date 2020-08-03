@@ -100,6 +100,10 @@ func callapi(client xmlrpc.Client, listmethod string, sessionkey string,
 		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1], myargs[2], myargs[3])
 		check(err)
 		GetVal(u, searchfields, result, datelist, intlist, strlist)
+	case len(myargs) == 5:
+		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1], myargs[2], myargs[3], myargs[4])
+		check(err)
+		GetVal(u, searchfields, result, datelist, intlist, strlist)
 	}
 }
 
