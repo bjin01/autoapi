@@ -31,10 +31,13 @@ func checkprint(err error, myargs []interface{}) {
 	if err != nil {
 		fmt.Printf("\n---uups---\n")
 		log.Println(err)
-		for _, v := range myargs {
-			s := fmt.Sprintf("%v", v)
-			fmt.Printf("\t%s\n", s)
+		if len(myargs) != 0 {
+			for _, v := range myargs {
+				s := fmt.Sprintf("%v", v)
+				fmt.Printf("\t%s\n", s)
+			}
 		}
+
 	}
 }
 
@@ -93,23 +96,33 @@ func callapi(client xmlrpc.Client, listmethod string, sessionkey string,
 	case len(myargs) == 0:
 		u, err := client.Call(listmethod, sessionkey)
 		checkprint(err, myargs)
-		GetVal(u, searchfields, result, datelist, intlist, strlist)
+		if u != nil {
+			GetVal(u, searchfields, result, datelist, intlist, strlist)
+		}
 	case len(myargs) == 1:
 		u, err := client.Call(listmethod, sessionkey, myargs[0])
 		checkprint(err, myargs)
-		GetVal(u, searchfields, result, datelist, intlist, strlist)
+		if u != nil {
+			GetVal(u, searchfields, result, datelist, intlist, strlist)
+		}
 	case len(myargs) == 2:
 		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1])
 		checkprint(err, myargs)
-		GetVal(u, searchfields, result, datelist, intlist, strlist)
+		if u != nil {
+			GetVal(u, searchfields, result, datelist, intlist, strlist)
+		}
 	case len(myargs) == 3:
 		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1], myargs[2])
 		checkprint(err, myargs)
-		GetVal(u, searchfields, result, datelist, intlist, strlist)
+		if u != nil {
+			GetVal(u, searchfields, result, datelist, intlist, strlist)
+		}
 	case len(myargs) == 4:
 		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1], myargs[2], myargs[3])
 		checkprint(err, myargs)
-		GetVal(u, searchfields, result, datelist, intlist, strlist)
+		if u != nil {
+			GetVal(u, searchfields, result, datelist, intlist, strlist)
+		}
 	case len(myargs) == 5:
 		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1], myargs[2], myargs[3], myargs[4])
 		checkprint(err, myargs)

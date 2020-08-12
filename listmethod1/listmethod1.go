@@ -20,6 +20,20 @@ func check(err error) {
 	}
 }
 
+func checkprint(err error, myargs []interface{}) {
+	if err != nil {
+		fmt.Printf("\n---uups---\n")
+		log.Println(err)
+		if len(myargs) != 0 {
+			for _, v := range myargs {
+				s := fmt.Sprintf("%v", v)
+				fmt.Printf("\t%s\n", s)
+			}
+		}
+
+	}
+}
+
 func Listmethod1(url string, user string, password string, listmethod string,
 	inputmaps map[string]interface{}, searchfields []string, result *Result) {
 	fmt.Printf("Calling %v...\n", listmethod)
@@ -46,33 +60,47 @@ func Listmethod1(url string, user string, password string, listmethod string,
 		switch {
 		case len(myargs) == 0:
 			u, err := client.Call(listmethod, f.Text())
-			check(err)
-			GetVal(u, searchfields, result, datelist, intlist, strlist)
+			checkprint(err, myargs)
+			if u != nil {
+				GetVal(u, searchfields, result, datelist, intlist, strlist)
+			}
 		case len(myargs) == 1:
 			u, err := client.Call(listmethod, f.Text(), myargs[0])
-			check(err)
-			GetVal(u, searchfields, result, datelist, intlist, strlist)
+			checkprint(err, myargs)
+			if u != nil {
+				GetVal(u, searchfields, result, datelist, intlist, strlist)
+			}
 		case len(myargs) == 2:
 			u, err := client.Call(listmethod, f.Text(), myargs[0], myargs[1])
-			check(err)
-			GetVal(u, searchfields, result, datelist, intlist, strlist)
+			checkprint(err, myargs)
+			if u != nil {
+				GetVal(u, searchfields, result, datelist, intlist, strlist)
+			}
 		case len(myargs) == 3:
 			u, err := client.Call(listmethod, f.Text(), myargs[0], myargs[1], myargs[2])
-			check(err)
-			GetVal(u, searchfields, result, datelist, intlist, strlist)
+			checkprint(err, myargs)
+			if u != nil {
+				GetVal(u, searchfields, result, datelist, intlist, strlist)
+			}
 		case len(myargs) == 4:
 			u, err := client.Call(listmethod, f.Text(), myargs[0], myargs[1], myargs[2], myargs[3])
-			check(err)
-			GetVal(u, searchfields, result, datelist, intlist, strlist)
+			checkprint(err, myargs)
+			if u != nil {
+				GetVal(u, searchfields, result, datelist, intlist, strlist)
+			}
 		case len(myargs) == 5:
 			u, err := client.Call(listmethod, f.Text(), myargs[0], myargs[1], myargs[2], myargs[3], myargs[4])
-			check(err)
-			GetVal(u, searchfields, result, datelist, intlist, strlist)
+			checkprint(err, myargs)
+			if u != nil {
+				GetVal(u, searchfields, result, datelist, intlist, strlist)
+			}
 		}
 	} else {
 		u, err := client.Call(listmethod, f.Text())
-		check(err)
-		GetVal(u, searchfields, result, datelist, intlist, strlist)
+		checkprint(err, myargs)
+		if u != nil {
+			GetVal(u, searchfields, result, datelist, intlist, strlist)
+		}
 		//fmt.Printf("result %v", u)
 	}
 	_, err = client.Call("auth.logout", f.Text())
