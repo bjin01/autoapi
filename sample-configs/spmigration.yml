@@ -15,13 +15,26 @@ listmethod1:
 listmethod2:
   methodname: system.scheduleSPMigration
   input_map:
-    1_serverid: 1000010160
-    2_baseChannelLabel:  sle-product-sles15-sp2-pool-x86_64
+    1_serverid: listmethod1.id
+    2_baseChannelLabel:  sle-product-sles_sap15-sp2-pool-x86_64
     3_optionalChildChannels:
-      -  sle-module-live-patching15-sp2-pool-x86_64
-      -  sle-module-live-patching15-sp2-updates-x86_64  
-      -  sle-module-desktop-applications15-sp2-pool-x86_64
-      -  sle-module-desktop-applications15-sp2-updates-x86_64 
+      - sle-manager-tools15-pool-x86_64-sap-sp2
+      - sle-manager-tools15-updates-x86_64-sap-sp2
+      - sle-module-basesystem15-sp2-pool-x86_64-sap
+      - sle-module-basesystem15-sp2-updates-x86_64-sap
+      - sle-module-containers15-sp2-pool-x86_64-sap
+      - sle-module-containers15-sp2-updates-x86_64-sap
+      - sle-module-desktop-applications15-sp2-pool-x86_64-sap
+      - sle-module-desktop-applications15-sp2-updates-x86_64-sap
+      - sle-module-python2-15-sp2-pool-x86_64-sap
+      - sle-module-python2-15-sp2-updates-x86_64-sap
+      - sle-module-sap-applications15-sp2-pool-x86_64
+      - sle-module-sap-applications15-sp2-updates-x86_64
+      - sle-module-server-applications15-sp2-pool-x86_64-sap
+      - sle-module-server-applications15-sp2-updates-x86_64-sap
+      - sle-product-ha15-sp2-pool-x86_64-sap
+      - sle-product-ha15-sp2-updates-x86_64-sap
+      - sle-product-sles_sap15-sp2-updates-x86_64 
     4_dryRun: true
     5_earliestOccurrence: datetime.2020-08-23T09:45:00
 
