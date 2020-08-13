@@ -66,6 +66,9 @@ func Finalmethod(url string, user string, password string, method string,
 	}
 
 	myargs, loopnum, myargs_empty := createinputargs(inputmapvalslice, resultsmethod1, resultsmethod2, 0)
+	if myargs_empty == true {
+		return
+	}
 
 	if loopnum > 0 {
 		for i := 0; i < loopnum; i++ {

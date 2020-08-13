@@ -318,6 +318,11 @@ func GetVal3(v xmlrpc.Value, searchfields []string, matchfield string,
 	result *Result, datelist []interface{},
 	intlist []int, strlist []string) {
 	z := v.Kind()
+
+	// if z or v.Kind() is return invalid or 0 than we want to exit this func otherwise endless loop happens.
+	if z == 0 {
+		return
+	}
 	y := v
 
 	switch f := z; f {
