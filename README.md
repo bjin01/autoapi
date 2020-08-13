@@ -28,7 +28,7 @@ The program is written in go.
 The sessionKey is not needed as this will be automatically added in the program.
 You need to copy paste systemGroupName into the config.yml as input e.g.
 ```
-listmethod1:
+method1:
   methodname: systemgroup.listActiveSystemsInGroup
   input_map:
     1_systemGroupName: test2
@@ -85,14 +85,14 @@ or
 
 __Notes:__
 You need to follow this rules in order to create your configuration file.
-* the program supports up to 3 api calls. (listmethod1, listmethod2, finalmethod)
+* the program supports up to 3 api calls. (method1, method2, finalmethod)
 * for each api call you need to provide input variables and output variables.
 * the input variables (input_map) will be handled as a map (dictionary) with name and value.
 * the order of the input variables is handled through prefixed 1_, 2_, 3_ etc.
 * the output variables will be read as a list. The order of the output var depends on the order in the configuration file.
   * look the section out_variablenames
 * if boolean, datetime and or array is needed as input variable. Then you have to add the type to the variable name.
-  * e.g. listmethod1.array.id means from the output of listmethod1, a list of id is needed as input for api call listmethod2
+  * e.g. method1.array.id means from the output of method1, a list of id is needed as input for api call method2
   * e.g. datetime.2020-07-30T21:30:00 means the input is a datetime format and the schedule date time is in ISO8601 format.
   * e.g. bool.true means the input variable is of type boolean and the value is true or false
 
@@ -105,7 +105,7 @@ server:
   username: admin
   password: hiphiphurra
 
-listmethod1:
+method1:
   methodname: systemgroup.listActiveSystemsInGroup
   input_map:
     1_systemGroupName: test2
@@ -114,10 +114,10 @@ listmethod1:
     - id
 
 
-listmethod2:
+method2:
   methodname: system.getRelevantErrata
   input_map:
-    1_serverid: listmethod1.id
+    1_serverid: method1.id
 
   out_variablenames: 
     - id
@@ -130,8 +130,8 @@ finalmethod:
   options:
     meth2_depend_meth1: true
   input_map:
-    1_serverid: listmethod1.id
-    2_errataId: listmethod2.array.id
+    1_serverid: method1.id
+    2_errataId: method2.array.id
     3_earliestOccurrence: datetime.2020-08-23T09:45:00
 
   out_variablenames: 

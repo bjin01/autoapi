@@ -1,4 +1,4 @@
-package listmethod2
+package method2
 
 import (
 	"fmt"
@@ -41,9 +41,9 @@ func checkprint(err error, myargs []interface{}) {
 	}
 }
 
-func Listmethod2(url string, user string, password string, listmethod string,
+func Method2(url string, user string, password string, method string,
 	inputmaps map[string]interface{}, searchfields []string, result *Result, resultsmethod1 *printresult.PrintResults) {
-	fmt.Printf("\nCalling %v...\n", listmethod)
+	fmt.Printf("\nCalling %v...\n", method)
 
 	var inputmapvalslice []interface{}
 	client := xmlrpc.NewClient(url)
@@ -74,11 +74,11 @@ func Listmethod2(url string, user string, password string, listmethod string,
 			myargs, _ := createinputargs(inputmapvalslice, resultsmethod1, i)
 			//fmt.Printf("my args are: %v\n", myargs)
 
-			callapi(client, listmethod, f.Text(), searchfields, myargs, result)
+			callapi(client, method, f.Text(), searchfields, myargs, result)
 
 		}
 	} else {
-		callapi(client, listmethod, f.Text(), searchfields, myargs, result)
+		callapi(client, method, f.Text(), searchfields, myargs, result)
 	}
 
 	_, err = client.Call("auth.logout", f.Text())
@@ -86,7 +86,7 @@ func Listmethod2(url string, user string, password string, listmethod string,
 
 }
 
-func callapi(client xmlrpc.Client, listmethod string, sessionkey string,
+func callapi(client xmlrpc.Client, method string, sessionkey string,
 	searchfields []string, myargs []interface{}, result *Result) {
 	intlist := []int{}
 	strlist := []string{}
@@ -94,37 +94,37 @@ func callapi(client xmlrpc.Client, listmethod string, sessionkey string,
 
 	switch {
 	case len(myargs) == 0:
-		u, err := client.Call(listmethod, sessionkey)
+		u, err := client.Call(method, sessionkey)
 		checkprint(err, myargs)
 		if u != nil {
 			GetVal(u, searchfields, result, datelist, intlist, strlist)
 		}
 	case len(myargs) == 1:
-		u, err := client.Call(listmethod, sessionkey, myargs[0])
+		u, err := client.Call(method, sessionkey, myargs[0])
 		checkprint(err, myargs)
 		if u != nil {
 			GetVal(u, searchfields, result, datelist, intlist, strlist)
 		}
 	case len(myargs) == 2:
-		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1])
+		u, err := client.Call(method, sessionkey, myargs[0], myargs[1])
 		checkprint(err, myargs)
 		if u != nil {
 			GetVal(u, searchfields, result, datelist, intlist, strlist)
 		}
 	case len(myargs) == 3:
-		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1], myargs[2])
+		u, err := client.Call(method, sessionkey, myargs[0], myargs[1], myargs[2])
 		checkprint(err, myargs)
 		if u != nil {
 			GetVal(u, searchfields, result, datelist, intlist, strlist)
 		}
 	case len(myargs) == 4:
-		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1], myargs[2], myargs[3])
+		u, err := client.Call(method, sessionkey, myargs[0], myargs[1], myargs[2], myargs[3])
 		checkprint(err, myargs)
 		if u != nil {
 			GetVal(u, searchfields, result, datelist, intlist, strlist)
 		}
 	case len(myargs) == 5:
-		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1], myargs[2], myargs[3], myargs[4])
+		u, err := client.Call(method, sessionkey, myargs[0], myargs[1], myargs[2], myargs[3], myargs[4])
 		checkprint(err, myargs)
 		if u != nil {
 			GetVal(u, searchfields, result, datelist, intlist, strlist)
@@ -156,12 +156,12 @@ func splitinputvar(v interface{}, resultsmethod1 *printresult.PrintResults, h in
 	//fmt.Printf("\t%v\n", s)
 
 	if ok == true {
-		if strings.Contains(s, "listmethod1") {
+		if strings.Contains(s, "method1") {
 			x := strings.Split(s, ".")
 
 			if len(x) != 0 {
 
-				k, num := Getfromlistmethod1(x[len(x)-1], resultsmethod1, h)
+				k, num := Getfrommethod1(x[len(x)-1], resultsmethod1, h)
 
 				return k, num
 			}
@@ -199,7 +199,7 @@ func splitinputvar(v interface{}, resultsmethod1 *printresult.PrintResults, h in
 	return v, 0
 }
 
-func Getfromlistmethod1(s string, resmethod1 *printresult.PrintResults, h int) (interface{}, int) {
+func Getfrommethod1(s string, resmethod1 *printresult.PrintResults, h int) (interface{}, int) {
 	var x interface{}
 	var loopnum int
 

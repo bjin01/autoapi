@@ -1,4 +1,4 @@
-package listmethod1
+package method1
 
 import (
 	"fmt"
@@ -34,9 +34,9 @@ func checkprint(err error, myargs []interface{}) {
 	}
 }
 
-func Listmethod1(url string, user string, password string, listmethod string,
+func Method1(url string, user string, password string, method string,
 	inputmaps map[string]interface{}, searchfields []string, result *Result) {
-	fmt.Printf("Calling %v...\n", listmethod)
+	fmt.Printf("Calling %v...\n", method)
 	var myargs []interface{}
 
 	client := xmlrpc.NewClient(url)
@@ -59,44 +59,44 @@ func Listmethod1(url string, user string, password string, listmethod string,
 		}
 		switch {
 		case len(myargs) == 0:
-			u, err := client.Call(listmethod, f.Text())
+			u, err := client.Call(method, f.Text())
 			checkprint(err, myargs)
 			if u != nil {
 				GetVal(u, searchfields, result, datelist, intlist, strlist)
 			}
 		case len(myargs) == 1:
-			u, err := client.Call(listmethod, f.Text(), myargs[0])
+			u, err := client.Call(method, f.Text(), myargs[0])
 			checkprint(err, myargs)
 			if u != nil {
 				GetVal(u, searchfields, result, datelist, intlist, strlist)
 			}
 		case len(myargs) == 2:
-			u, err := client.Call(listmethod, f.Text(), myargs[0], myargs[1])
+			u, err := client.Call(method, f.Text(), myargs[0], myargs[1])
 			checkprint(err, myargs)
 			if u != nil {
 				GetVal(u, searchfields, result, datelist, intlist, strlist)
 			}
 		case len(myargs) == 3:
-			u, err := client.Call(listmethod, f.Text(), myargs[0], myargs[1], myargs[2])
+			u, err := client.Call(method, f.Text(), myargs[0], myargs[1], myargs[2])
 			checkprint(err, myargs)
 			if u != nil {
 				GetVal(u, searchfields, result, datelist, intlist, strlist)
 			}
 		case len(myargs) == 4:
-			u, err := client.Call(listmethod, f.Text(), myargs[0], myargs[1], myargs[2], myargs[3])
+			u, err := client.Call(method, f.Text(), myargs[0], myargs[1], myargs[2], myargs[3])
 			checkprint(err, myargs)
 			if u != nil {
 				GetVal(u, searchfields, result, datelist, intlist, strlist)
 			}
 		case len(myargs) == 5:
-			u, err := client.Call(listmethod, f.Text(), myargs[0], myargs[1], myargs[2], myargs[3], myargs[4])
+			u, err := client.Call(method, f.Text(), myargs[0], myargs[1], myargs[2], myargs[3], myargs[4])
 			checkprint(err, myargs)
 			if u != nil {
 				GetVal(u, searchfields, result, datelist, intlist, strlist)
 			}
 		}
 	} else {
-		u, err := client.Call(listmethod, f.Text())
+		u, err := client.Call(method, f.Text())
 		checkprint(err, myargs)
 		if u != nil {
 			GetVal(u, searchfields, result, datelist, intlist, strlist)

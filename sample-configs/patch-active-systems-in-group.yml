@@ -3,7 +3,7 @@ server:
   username: bjin
   password: suse1234
 
-listmethod1:
+method1:
   methodname: systemgroup.listActiveSystemsInGroup
   input_map:
     1_systemGroupName: test2
@@ -12,10 +12,10 @@ listmethod1:
     - id
 
 
-listmethod2:
+method2:
   methodname: system.getRelevantErrata
   input_map:
-    1_serverid: listmethod1.id
+    1_serverid: method1.id
 
   out_variablenames: 
     - id
@@ -28,8 +28,8 @@ finalmethod:
   options:
     meth2_depend_meth1: true
   input_map:
-    1_serverid: listmethod1.id
-    2_errataId: listmethod2.array.id
+    1_serverid: method1.id
+    2_errataId: method2.array.id
     3_earliestOccurrence: datetime.2020-08-23T09:45:00
 
   out_variablenames: 

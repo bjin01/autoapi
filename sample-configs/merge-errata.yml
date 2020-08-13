@@ -4,7 +4,7 @@ server:
   password: suse1234
 
 
-listmethod1:
+method1:
   methodname: channel.software.mergePackages
   input_map:
     1_mergeFromLabel:  sles12-sp5-updates-x86_64-sap 
@@ -17,7 +17,7 @@ listmethod1:
     - version
     - id
 
-listmethod2:
+method2:
   methodname: channel.software.mergeErrata
   input_map:
     1_mergeFromLabel:  sles12-sp5-updates-x86_64-sap 

@@ -16,7 +16,7 @@ type Config struct {
 		Password string `yaml:"password"`
 	} `yaml:"server"`
 
-	Listmethod1 struct {
+	Method1 struct {
 		Methodname   string                 `yaml:"methodname"`
 		InputVars    map[string]interface{} `yaml:"input_map"`
 		Outvariables []string               `yaml:"out_variablenames"`
@@ -25,9 +25,9 @@ type Config struct {
 			Byset      bool `yaml:"by_dataset"`
 			Json       bool `yaml:"json"`
 		} `yaml:"output_format"`
-	} `yaml:"listmethod1"`
+	} `yaml:"method1"`
 
-	Listmethod2 struct {
+	Method2 struct {
 		Methodname   string                 `yaml:"methodname"`
 		InputVars    map[string]interface{} `yaml:"input_map"`
 		Outvariables []string               `yaml:"out_variablenames"`
@@ -36,7 +36,7 @@ type Config struct {
 			Byset      bool `yaml:"by_dataset"`
 			Json       bool `yaml:"json"`
 		} `yaml:"output_format"`
-	} `yaml:"listmethod2"`
+	} `yaml:"method2"`
 
 	Finalmethod struct {
 		Methodname string `yaml:"methodname"`

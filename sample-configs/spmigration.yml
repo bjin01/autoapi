@@ -3,7 +3,7 @@ server:
   username: bjin
   password: suse1234
 
-listmethod1:
+method1:
   methodname: systemgroup.listActiveSystemsInGroup
   input_map:
     1_systemGroupName: test2
@@ -12,10 +12,10 @@ listmethod1:
     - id
 
 
-listmethod2:
+method2:
   methodname: system.scheduleSPMigration
   input_map:
-    1_serverid: listmethod1.id
+    1_serverid: method1.id
     2_baseChannelLabel:  sle-product-sles_sap15-sp2-pool-x86_64
     3_optionalChildChannels:
       - sle-manager-tools15-pool-x86_64-sap-sp2

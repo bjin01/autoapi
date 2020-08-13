@@ -38,10 +38,10 @@ func checkprint(err error, myargs []interface{}) {
 	}
 }
 
-func Finalmethod(url string, user string, password string, listmethod string,
+func Finalmethod(url string, user string, password string, method string,
 	inputmaps map[string]interface{}, searchfields []string, result *Result,
 	resultsmethod1 *printresult.PrintResults, resultsmethod2 *printresult2.PrintResults) {
-	fmt.Printf("\nCalling %v...\n", listmethod)
+	fmt.Printf("\nCalling %v...\n", method)
 
 	var inputmapvalslice []interface{}
 	client := xmlrpc.NewClient(url)
@@ -72,12 +72,12 @@ func Finalmethod(url string, user string, password string, listmethod string,
 
 			myargs, _, myargs_empty := createinputargs(inputmapvalslice, resultsmethod1, resultsmethod2, i)
 			if myargs_empty == false {
-				callapi(client, listmethod, f.Text(), searchfields, myargs, result)
+				callapi(client, method, f.Text(), searchfields, myargs, result)
 			}
 		}
 	} else {
 		if myargs_empty == false {
-			callapi(client, listmethod, f.Text(), searchfields, myargs, result)
+			callapi(client, method, f.Text(), searchfields, myargs, result)
 		}
 	}
 
@@ -86,7 +86,7 @@ func Finalmethod(url string, user string, password string, listmethod string,
 
 }
 
-func callapi(client xmlrpc.Client, listmethod string, sessionkey string,
+func callapi(client xmlrpc.Client, method string, sessionkey string,
 	searchfields []string, myargs []interface{}, result *Result) {
 	intlist := []int{}
 	strlist := []string{}
@@ -94,38 +94,38 @@ func callapi(client xmlrpc.Client, listmethod string, sessionkey string,
 
 	switch {
 	case len(myargs) == 0:
-		u, err := client.Call(listmethod, sessionkey)
+		u, err := client.Call(method, sessionkey)
 		checkprint(err, myargs)
 		if u != nil {
 			GetVal(u, searchfields, result, datelist, intlist, strlist)
 		}
 	case len(myargs) == 1:
-		u, err := client.Call(listmethod, sessionkey, myargs[0])
+		u, err := client.Call(method, sessionkey, myargs[0])
 		checkprint(err, myargs)
 		if u != nil {
 			GetVal(u, searchfields, result, datelist, intlist, strlist)
 		}
 	case len(myargs) == 2:
-		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1])
+		u, err := client.Call(method, sessionkey, myargs[0], myargs[1])
 		checkprint(err, myargs)
 		if u != nil {
 			GetVal(u, searchfields, result, datelist, intlist, strlist)
 		}
 	case len(myargs) == 3:
 		fmt.Println(myargs[1])
-		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1], myargs[2])
+		u, err := client.Call(method, sessionkey, myargs[0], myargs[1], myargs[2])
 		checkprint(err, myargs)
 		if u != nil {
 			GetVal(u, searchfields, result, datelist, intlist, strlist)
 		}
 	case len(myargs) == 4:
-		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1], myargs[2], myargs[3])
+		u, err := client.Call(method, sessionkey, myargs[0], myargs[1], myargs[2], myargs[3])
 		checkprint(err, myargs)
 		if u != nil {
 			GetVal(u, searchfields, result, datelist, intlist, strlist)
 		}
 	case len(myargs) == 5:
-		u, err := client.Call(listmethod, sessionkey, myargs[0], myargs[1], myargs[2], myargs[3], myargs[4])
+		u, err := client.Call(method, sessionkey, myargs[0], myargs[1], myargs[2], myargs[3], myargs[4])
 		checkprint(err, myargs)
 		if u != nil {
 			GetVal(u, searchfields, result, datelist, intlist, strlist)
@@ -166,34 +166,34 @@ func splitinputvar(v interface{}, resultsmethod1 *printresult.PrintResults,
 	s, ok := v.(string)
 
 	if ok == true {
-		if strings.Contains(s, "listmethod") {
+		if strings.Contains(s, "method") {
 			x := strings.Split(s, ".")
 			//fmt.Printf("x is: %v\n", x)
 			if len(x) != 0 {
 				if len(x) == 3 {
-					if strings.Contains(x[0], "listmethod1") {
-						k, num := getfromlistmethods(x[len(x)-1], resultsmethod1, resultsmethod2, h, "list1", true)
+					if strings.Contains(x[0], "method1") {
+						k, num := getfrommethods(x[len(x)-1], resultsmethod1, resultsmethod2, h, "list1", true)
 						//fmt.Printf("the totalnumber in list is %v\n", num)
 						return k, num
 					}
 
-					if strings.Contains(x[0], "listmethod2") {
+					if strings.Contains(x[0], "method2") {
 						//if len is eq or greater 2 than we have to return a slice (array) instead of single val.
-						k, num := getfromlistmethods(x[len(x)-1], resultsmethod1, resultsmethod2, h, "list2", true)
+						k, num := getfrommethods(x[len(x)-1], resultsmethod1, resultsmethod2, h, "list2", true)
 						//fmt.Printf("the totalnumber in list is %v\n", num)
 						return k, num
 					}
 
 				} else {
 					//fmt.Printf("the field in %v is: %v\n", v, x[len(x)-1])
-					if strings.Contains(x[0], "listmethod1") {
-						k, num := getfromlistmethods(x[len(x)-1], resultsmethod1, resultsmethod2, h, "list1", false)
+					if strings.Contains(x[0], "method1") {
+						k, num := getfrommethods(x[len(x)-1], resultsmethod1, resultsmethod2, h, "list1", false)
 						//fmt.Printf("the totalnumber in list is %v\n", num)
 						return k, num
 					}
 
-					if strings.Contains(x[0], "listmethod2") {
-						k, num := getfromlistmethods(x[len(x)-1], resultsmethod1, resultsmethod2, h, "list2", false)
+					if strings.Contains(x[0], "method2") {
+						k, num := getfrommethods(x[len(x)-1], resultsmethod1, resultsmethod2, h, "list2", false)
 						//fmt.Printf("the totalnumber in list is %v\n", num)
 						return k, num
 					}
@@ -234,7 +234,7 @@ func splitinputvar(v interface{}, resultsmethod1 *printresult.PrintResults,
 	return v, 0
 }
 
-func getfromlistmethods(s string, resmethod1 *printresult.PrintResults, resmethod2 *printresult2.PrintResults,
+func getfrommethods(s string, resmethod1 *printresult.PrintResults, resmethod2 *printresult2.PrintResults,
 	h int, list string, needlist bool) (interface{}, int) {
 	var x interface{}
 	var loopnum int

@@ -3,7 +3,7 @@ package printresult2
 import (
 	"fmt"
 
-	"github.com/bjin01/autoapi/listmethod2"
+	"github.com/bjin01/autoapi/method2"
 )
 
 type PrintResults struct {
@@ -12,7 +12,7 @@ type PrintResults struct {
 	Datetimemap map[string][]interface{}
 }
 
-func Printresult(result *listmethod2.Result, s []string) *PrintResults {
+func Printresult(result *method2.Result, s []string) *PrintResults {
 	keylist := []string{}
 
 	intmap := make(map[string][]int)

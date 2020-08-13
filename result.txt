@@ -11,7 +11,7 @@ id:	1000010156
 
 new data set: ----------------
 id:	1000010160
-cfg.Listmethod2.InputVars: map[1_serverid:listmethod1.id]
+cfg.Method2.InputVars: map[1_serverid:method1.id]
 
 Calling system.getRelevantErrata...
 
@@ -296,10 +296,10 @@ id:	18531
 advisory_synopsis:	important: Security update for ldb, samba
 advisory_name:	SUSE-15-SP2-2020-1948
 advisory_type:	Security Advisory
-great, we found matching 1_serverid: listmethod1.id
-The return from Listmethod2 is: map[1_serverid:1000010140], 0
-The return from Finalmethod is: map[1_serverid:1000010140 2_errataId:listmethod2.array.id 3_earliestOccurrence:datetime.2020-08-23T09:45:00], 0
-cfg.Listmethod2.InputVars: map[1_serverid:1000010140]
+great, we found matching 1_serverid: method1.id
+The return from method2 is: map[1_serverid:1000010140], 0
+The return from Finalmethod is: map[1_serverid:1000010140 2_errataId:method2.array.id 3_earliestOccurrence:datetime.2020-08-23T09:45:00], 0
+cfg.Method2.InputVars: map[1_serverid:1000010140]
 
 Calling system.getRelevantErrata...
 
@@ -334,12 +334,12 @@ get here? [16737 16229 15371 15132]
 
 new data set: ----------------
 actionId:	10063
-The return from Listmethod2 is: map[1_serverid:1000010143], 1
-The return from Finalmethod is: map[1_serverid:1000010143 2_errataId:listmethod2.array.id 3_earliestOccurrence:datetime.2020-08-23T09:45:00], 1
-cfg.Listmethod2.InputVars: map[1_serverid:1000010143]
+The return from method2 is: map[1_serverid:1000010143], 1
+The return from Finalmethod is: map[1_serverid:1000010143 2_errataId:method2.array.id 3_earliestOccurrence:datetime.2020-08-23T09:45:00], 1
+cfg.Method2.InputVars: map[1_serverid:1000010143]
 
 Calling system.getRelevantErrata...
 
 Calling system.scheduleApplyErrata...
-listmethod2.array.id is empty: <nil> 1myargs is: [1000010143 <nil> 2020-08-23 09:45:00 +0000 UTC]
+method2.array.id is empty: <nil> 1myargs is: [1000010143 <nil> 2020-08-23 09:45:00 +0000 UTC]
 <nil>
