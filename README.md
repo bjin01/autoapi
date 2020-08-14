@@ -77,21 +77,26 @@ __Example: Call-A ouptuts list of serverid, Call-B need serverid to find install
 
 
 ## __Usage__:
-1. Download this github repo to your local machine:
+1. Install go on Linux (e.g. SLES15SP1)
+```zypper in -y go```
 
-```git clone https://github.com/bjin01/autoapi.git```
+2. Check if GOPATH directories exist
+```go env GOPATH```
 
-2. Prepare your configuration file in yaml format.
+create GOPATH subdir if they don't exist yet.:
+```
+mkdir -p go/src
+mkdir -p go/bin
+```
+
+3. Download this github repo to your local machine:
+
+```go get github.com/bjin01/autoapi```
+
+4. Prepare your configuration file in yaml format.
 As an example look at the config.yml file
 
-3. Run the program with your configuration file.
-You can copy the binary ```autoapi``` to ```/usr/local/sbin``` or run it from the directory where you git cloned the repo to.
-```
-# cp autoapi /usr/local/sbin/
-# autoapi -config config.yml
-
-```
-or
+5. Run the program with your configuration file.
 
 ```./autoapi -config sample-configs/patch-active-systems-in-group.yml```
 
