@@ -1,17 +1,24 @@
 # SUSE Manager - api automation - *autoapi*
 
-This program automates spacewalk/uyuni/SUSE-Manager xmlrpc api calls by reading out from an user-given 
-configuration file in yaml format. The api call's output can be used as input for next api call and so on.
+This program automates spacewalk/uyuni/SUSE-Manager xmlrpc api calls by reading from an user-given 
+configuration file in yaml format. The api call output can be used as input for the next api call and so on.
 
 The program is written in go.
+
+## Updates: 14. 08. 2020
+* bugfixe: created a new checkprint function to print out api call error but not exit the program. 
+    Sometimes the api call output can be empty but to continue proceed to the end of list.
+* added a new sample yml for content-lifecycle-build and promote 
+* renamed the method name to 'method1' 'method2' instead old name which was listmethodx. 
+
 
 ## Updates: 31. 07. 2020
 * forked xmlrpc and changed import to use forked repo.
 * added a new 'dependmethod' which is taking the output from method1 and loop through it as input for method2. 
 * This 'dependmethod' is needed for example:
     If method 1 outputs a list of active systems in a given group.
-    Then method 2 uses the output from method1 (serverid) and seeks for every single serverid the relevant errata as output 
-    The finalmethod will then creates apply-errata job for each serverid with their relevant errata.
+    Then method 2 uses the output from method1 (serverid) and queries for every serverid the relevant errata as output in list. 
+    Then finalmethod will create apply-errata job for each serverid with their relevant errata.
     For this purpose a new 'opotion' in yaml config file has been introduced (see config.yml) to trigger the 'dependmethod'
     
 ```
@@ -23,9 +30,14 @@ The program is written in go.
 * In order to run the program you have to compose the config.yml file with method name, input and output parameters you wish.
 * Go to SUSE Manager Web UI - left side menue tree -> Help -> API -> Overview
 * Select a method namespace e.g. systemgroup
-* Select in the namespace systemgroup a method e.g. listAdministrators
-* Now you find documented input parameters needed: sessionKey and systemGroupName.
-The sessionKey is not needed as this will be automatically added in the program.
+* Select in the namespace systemgroup a method e.g. ```listAdministrators```
+* Now you can find documented input parameters: 
+    ```
+    sessionKey
+    systemGroupName
+    ```
+
+__The sessionKey is not needed as this will be automatically added by the internal logic.__
 You need to copy paste systemGroupName into the config.yml as input e.g.
 ```
 method1:
@@ -36,11 +48,11 @@ method1:
   out_variablenames:  
     - id
 ```
-__Becareful:__ 
+__Attention:__ 
 * the methodname is case-sensitive.
 * The input parameter names must not be the same as in the doc but the value has to be in the correct type. If input parameters are not given correctly the api call will fail.
 * For correct ordering of the input parameters you have to prefix it with 1_, 2_, 3_ etc.
-* For the order of output parameters the ordering is done based on order of the lines.
+* The order of output parameters is done based on order of the lines.
 
 ## __Benefits__
 * No need to ask scripter to create many python/perl/etc. script just to automate some api calls. You can do it by yourself. __Save time, be flexible and be independant__ :-)
@@ -49,13 +61,13 @@ __Becareful:__
 * The program automates api calls with your desired input parameters and values, including api url, username, password etc. Higher security as the file should be root user rw only.
 * the program can use output from previous api call to be used as input for the next api call.
 
-__For example: Call-A ouptuts list of serverid, Call-B need serverid to find installable patches and returns a list of patches and finally the last Call-C will use the list of serverid and list of patches to schedule installation jobs.__
+__Example: Call-A ouptuts list of serverid, Call-B need serverid to find installable patches and returns a list of patches and finally the last Call-C will use the list of serverid and list of patches to schedule installation jobs.__ (see sample-configs/patch-active-systems-in-group.yml)
 
 ## Prerequisites:
 * SUSE Manager 4.0.x (tested)
 * go 1.14 (from packagehub for sles15sp1)
 
-## 3rd party go-lib needed:
+## For developers: 3rd party go-lib needed:
 ```cd $GOPATH```
 * Download the xmlrpc lib from my repo which is a fork.
   ```go get github.com/bjin01/go-xmlrpc```
@@ -81,7 +93,7 @@ You can copy the binary ```autoapi``` to ```/usr/local/sbin``` or run it from th
 ```
 or
 
-```./autoapi -config ./config.yml```
+```./autoapi -config sample-configs/patch-active-systems-in-group.yml```
 
 __Notes:__
 You need to follow this rules in order to create your configuration file.
@@ -143,7 +155,7 @@ finalmethod:
 * the program can only accept up to 5 input parameters for each api call.
 
 ## Next coming:
-* optimize codes
+* optimize code
 * continue testing more api calls.
 * continues bug-fixing
 

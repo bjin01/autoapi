@@ -193,6 +193,10 @@ func GetVal3(v xmlrpc.Value, searchfields []string, matchfield string,
 	z := v.Kind()
 	y := v
 
+	if z == 0 {
+		return
+	}
+
 	switch f := z; f {
 	case 1:
 		GetMembers(y.Members(), searchfields, result, datelist, intlist, strlist)

@@ -1,0 +1,13 @@
+server:
+  apiurl: http://bjsuma.bo2go.home/rpc/api
+  username: bjin
+  password: suse1234
+
+method1:
+  methodname: contentmanagement.promoteProject
+  input_map:
+    1_projectLabel: mysap15sp2
+    2_envLabel:  dev
+  
+  out_variablenames:  
+    -
