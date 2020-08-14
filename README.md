@@ -65,7 +65,7 @@ __Example: Call-A ouptuts list of serverid, Call-B need serverid to find install
 
 ## Prerequisites:
 * SUSE Manager 4.0.x (tested)
-* go 1.14 (from packagehub for sles15sp1)
+* go 1.14 (from sle-module-devtools15-sp1-updates-x86_64 or packagehub for sles15sp1)
 
 ## __Usage__:
 1. Install go on Linux (e.g. SLES15SP1)
