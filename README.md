@@ -67,15 +67,6 @@ __Example: Call-A ouptuts list of serverid, Call-B need serverid to find install
 * SUSE Manager 4.0.x (tested)
 * go 1.14 (from packagehub for sles15sp1)
 
-## For developers: 3rd party go-lib needed:
-```cd $GOPATH```
-* Download the xmlrpc lib from my repo which is a fork.
-  ```go get github.com/bjin01/go-xmlrpc```
-
-* gopkg.in/yaml.v2 (for yaml file reading)
-  ```go get gopkg.in/yaml.v2```
-
-
 ## __Usage__:
 1. Install go on Linux (e.g. SLES15SP1)
 ```zypper in -y go```
@@ -91,14 +82,21 @@ mkdir -p go/bin
 
 3. Download this github repo to your local machine:
 
-```go get github.com/bjin01/autoapi```
+```
+cd `go env GOPATH`
+go get github.com/bjin01/autoapi
+```
 
 4. Prepare your configuration file in yaml format.
 As an example look at the config.yml file
 
 5. Run the program with your configuration file.
 
-```./autoapi -config sample-configs/patch-active-systems-in-group.yml```
+```
+cd `go env GOPATH`
+cd src/github.com/bjin01/autoapi
+./autoapi -config sample-configs/patch-active-systems-in-group.yml
+```
 
 __Notes:__
 You need to follow this rules in order to create your configuration file.
