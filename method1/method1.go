@@ -5,6 +5,8 @@ import (
 	"log"
 	"sort"
 
+	"github.com/bjin01/autoapi/filters"
+	"github.com/bjin01/autoapi/getyaml"
 	"github.com/bjin01/go-xmlrpc"
 )
 
@@ -34,7 +36,7 @@ func checkprint(err error, myargs []interface{}) {
 	}
 }
 
-func Method1(url string, user string, password string, method string,
+func Method1(cfg *getyaml.Config, url string, user string, password string, method string,
 	inputmaps map[string]interface{}, searchfields []string, result *Result) {
 	fmt.Printf("Calling %v...\n", method)
 	var myargs []interface{}
@@ -68,7 +70,13 @@ func Method1(url string, user string, password string, method string,
 			u, err := client.Call(method, f.Text(), myargs[0])
 			checkprint(err, myargs)
 			if u != nil {
-				GetVal(u, searchfields, result, datelist, intlist, strlist)
+				//adding filter feature here
+				if cfg.Method1.Filters != nil {
+					filters.ApplyFilter(*cfg, u, "method1")
+				} else {
+					GetVal(u, searchfields, result, datelist, intlist, strlist)
+				}
+
 			}
 		case len(myargs) == 2:
 			u, err := client.Call(method, f.Text(), myargs[0], myargs[1])

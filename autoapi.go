@@ -59,8 +59,7 @@ func main() {
 	//fmt.Printf("%v\n", cfg.Method1.InputVars)
 	if cfg.Method1.Methodname != "" {
 
-		method1.Method1(cfg.Server.ApiUrl, cfg.Server.Username, cfg.Server.Password,
-			cfg.Method1.Methodname, cfg.Method1.InputVars, Sortedmethod1Outvars, result)
+		method1.Method1(cfg, cfg.Server.ApiUrl, cfg.Server.Username, cfg.Server.Password, cfg.Method1.Methodname, cfg.Method1.InputVars, Sortedmethod1Outvars, result)
 
 	}
 

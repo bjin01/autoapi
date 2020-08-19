@@ -20,6 +20,7 @@ type Config struct {
 		Methodname   string                 `yaml:"methodname"`
 		InputVars    map[string]interface{} `yaml:"input_map"`
 		Outvariables []string               `yaml:"out_variablenames"`
+		Filters      map[string]interface{} `yaml:"filters"`
 		Outputformat struct {
 			Byvariable bool `yaml:"by_variable"`
 			Byset      bool `yaml:"by_dataset"`
@@ -31,6 +32,7 @@ type Config struct {
 		Methodname   string                 `yaml:"methodname"`
 		InputVars    map[string]interface{} `yaml:"input_map"`
 		Outvariables []string               `yaml:"out_variablenames"`
+		Filters      map[string]interface{} `yaml:"filters"`
 		Outputformat struct {
 			Byvariable bool `yaml:"by_variable"`
 			Byset      bool `yaml:"by_dataset"`
@@ -46,6 +48,7 @@ type Config struct {
 
 		InputVars    map[string]interface{} `yaml:"input_map"`
 		Outvariables []string               `yaml:"out_variablenames"`
+		Filters      map[string]interface{} `yaml:"filters"`
 		Outputformat struct {
 			Byvariable bool `yaml:"by_variable"`
 			Byset      bool `yaml:"by_dataset"`

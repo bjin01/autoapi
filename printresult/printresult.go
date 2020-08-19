@@ -141,7 +141,14 @@ func printstring(result *PrintResults, i int, s string) {
 		for a, b := range result.Stringmap {
 			if a == s {
 				fmt.Printf("%v:", a)
-				fmt.Printf("\t%v\n", b[i])
+				//below if is needed because sometimes the i is higher than length of b
+				if i >= len(b) {
+					fmt.Printf("\n")
+					break
+				} else {
+					fmt.Printf("\t%v\n", b[i])
+				}
+
 			}
 		}
 	}
@@ -152,7 +159,13 @@ func printinteger(result *PrintResults, i int, s string) {
 		for a, b := range result.Intmap {
 			if a == s {
 				fmt.Printf("%v:", a)
-				fmt.Printf("\t%v\n", b[i])
+				//below if is needed because sometimes the i is higher than length of b
+				if i >= len(b) {
+					fmt.Printf("\n")
+					break
+				} else {
+					fmt.Printf("\t%v\n", b[i])
+				}
 			}
 
 		}
@@ -164,7 +177,13 @@ func printdatetime(result *PrintResults, i int, s string) {
 		for a, b := range result.Datetimemap {
 			if a == s {
 				fmt.Printf("%v:", a)
-				fmt.Printf("\t%v\n", b[i])
+				//below if is needed because sometimes the i is higher than length of b
+				if i >= len(b) {
+					fmt.Printf("\n")
+					break
+				} else {
+					fmt.Printf("\t%v\n", b[i])
+				}
 			}
 
 		}

@@ -6,6 +6,11 @@ configuration file in yaml format. The api call output can be used as input for 
 The program is written in go.
 
 ## Updates: 14. 08. 2020
+* added filter function in config.yml. Add filters option by putting the parameter name and the value you want to match. e.g. 
+```
+filters:
+    patch_status: AFFECTED_PATCH_APPLICABLE
+```
 * bugfixe: created a new checkprint function to print out api call error but not exit the program. 
     Sometimes the api call output can be empty but to continue proceed to the end of list.
 * added a new sample yml for content-lifecycle-build and promote 
@@ -68,12 +73,15 @@ __Example: Call-A ouptuts list of serverid, Call-B need serverid to find install
 * go 1.14 (from sle-module-devtools15-sp1-updates-x86_64 or packagehub for sles15sp1)
 
 ## __Usage__:
-1. Install go on Linux (e.g. SLES15SP1)
+1. Install Go on Linux (e.g. SLES15SP1)
 ```zypper in -y go```
+
+Of course feel free to use other Go packages if you are using other linux distro than opensuse or SLES.
 
 2. Check if GOPATH directories exist
 ```go env GOPATH```
 
+If you installed Go from SLES repos then you have to create below sub-directories in where you wish to have env GOPATH to be.
 create GOPATH subdir if they don't exist yet.:
 ```
 mkdir -p go/src
