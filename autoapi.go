@@ -4,29 +4,31 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/bjin01/autoapi/dependmethod"
-	"github.com/bjin01/autoapi/finalmethod"
+	"github.com/bjin01/autoapi/callapi"
 	"github.com/bjin01/autoapi/getyaml"
-	"github.com/bjin01/autoapi/method1"
-	"github.com/bjin01/autoapi/method2"
-	"github.com/bjin01/autoapi/printfinalresult"
-	"github.com/bjin01/autoapi/printresult"
-	"github.com/bjin01/autoapi/printresult2"
-	"github.com/bjin01/autoapi/sort"
 )
 
 const (
 	SUMAURL string = "http://bjsuma.bo2go.home/rpc/api"
 )
 
-type Login struct {
-	Username string
-	Passwd   string
-}
-
 func check(err error) {
 	if err != nil {
 		log.Fatal(err)
+	}
+}
+
+func checkprint(err error, myargs []interface{}) {
+	if err != nil {
+		fmt.Printf("\n---uups---\n")
+		log.Println(err)
+		if len(myargs) != 0 {
+			for _, v := range myargs {
+				s := fmt.Sprintf("%v", v)
+				fmt.Printf("\t%s\n", s)
+			}
+		}
+
 	}
 }
 
@@ -40,7 +42,50 @@ func main() {
 		log.Fatal(err)
 	}
 
-	result := new(method1.Result)
+	c := callapi.C{
+		Cfg: cfg,
+	}
+	var mycall callapi.Caller = &c
+	var print_u callapi.Printvalue
+	u, err := mycall.Callapi("method1", nil, nil)
+	check(err)
+	if u != nil {
+		result := callapi.R{
+			U: u,
+		}
+		print_u = &result
+
+		err := print_u.Printmethod1(&c)
+		check(err)
+		/* log.Printf("method1 output: \n")
+		fmt.Println(u.Values()) */
+	}
+
+	u2, err := mycall.Callapi("method2", u, nil)
+	check(err)
+	if u2 != nil {
+		result := callapi.R{
+			U: u2,
+		}
+		print_u = &result
+
+		err := print_u.Printmethod2(&c)
+		check(err)
+	}
+
+	u3, err := mycall.Callapi("finalmethod", u, u2)
+	check(err)
+	if u3 != nil {
+		result := callapi.R{
+			U: u3,
+		}
+		print_u = &result
+
+		err := print_u.Printfinalmethod(&c)
+		check(err)
+	}
+
+	/* result := new(method1.Result)
 	result2 := new(method2.Result)
 	resultfinal := new(finalmethod.Result)
 	//resultdependmethod := new(dependmethod.Result)
@@ -69,7 +114,7 @@ func main() {
 	if cfg.Method2.Methodname != "" {
 		fmt.Printf("cfg.Method2.InputVars: %v\n", cfg.Method2.InputVars)
 		//fmt.Printf("%v\n", cfg.Method2.InputVars)
-		method2.Method2(cfg.Server.ApiUrl, cfg.Server.Username, cfg.Server.Password,
+		method2.Method2(cfg, cfg.Server.ApiUrl, cfg.Server.Username, cfg.Server.Password,
 			cfg.Method2.Methodname, cfg.Method2.InputVars, Sortedmethod2Outvars, result2, resultsmethod1)
 	}
 
@@ -81,13 +126,13 @@ func main() {
 			dependmethod.Dependmethod(cfg.Finalmethod.InputVars, cfg.Method2.InputVars, resultsmethod1, cfg,
 				Sortedmethod2Outvars, SortedFinalmethodOutvars)
 		} else {
-			finalmethod.Finalmethod(cfg.Server.ApiUrl, cfg.Server.Username, cfg.Server.Password,
+			finalmethod.Finalmethod(cfg, cfg.Server.ApiUrl, cfg.Server.Username, cfg.Server.Password,
 				cfg.Finalmethod.Methodname, cfg.Finalmethod.InputVars, SortedFinalmethodOutvars,
 				resultfinal, resultsmethod1, resultsmethod2)
 		}
 
 	}
 
-	printfinalresult.Printresult(resultfinal, sort.SortSlice(cfg.Finalmethod.Outvariables))
+	printfinalresult.Printresult(resultfinal, sort.SortSlice(cfg.Finalmethod.Outvariables)) */
 	//fmt.Printf("Final Job Output: %v\n", resultfinalmethod)
 }

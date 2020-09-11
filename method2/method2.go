@@ -7,6 +7,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/bjin01/autoapi/filters"
+	"github.com/bjin01/autoapi/getyaml"
 	"github.com/bjin01/autoapi/printresult"
 	"github.com/bjin01/go-xmlrpc"
 )
@@ -41,7 +43,7 @@ func checkprint(err error, myargs []interface{}) {
 	}
 }
 
-func Method2(url string, user string, password string, method string,
+func Method2(cfg *getyaml.Config, url string, user string, password string, method string,
 	inputmaps map[string]interface{}, searchfields []string, result *Result, resultsmethod1 *printresult.PrintResults) {
 	fmt.Printf("\nCalling %v...\n", method)
 
@@ -74,11 +76,11 @@ func Method2(url string, user string, password string, method string,
 			myargs, _ := createinputargs(inputmapvalslice, resultsmethod1, i)
 			//fmt.Printf("my args are: %v\n", myargs)
 
-			callapi(client, method, f.Text(), searchfields, myargs, result)
+			callapi(cfg, client, method, f.Text(), searchfields, myargs, result)
 
 		}
 	} else {
-		callapi(client, method, f.Text(), searchfields, myargs, result)
+		callapi(cfg, client, method, f.Text(), searchfields, myargs, result)
 	}
 
 	_, err = client.Call("auth.logout", f.Text())
@@ -86,7 +88,7 @@ func Method2(url string, user string, password string, method string,
 
 }
 
-func callapi(client xmlrpc.Client, method string, sessionkey string,
+func callapi(cfg *getyaml.Config, client xmlrpc.Client, method string, sessionkey string,
 	searchfields []string, myargs []interface{}, result *Result) {
 	intlist := []int{}
 	strlist := []string{}
@@ -97,37 +99,73 @@ func callapi(client xmlrpc.Client, method string, sessionkey string,
 		u, err := client.Call(method, sessionkey)
 		checkprint(err, myargs)
 		if u != nil {
-			GetVal(u, searchfields, result, datelist, intlist, strlist)
+			//adding filter feature here
+			if cfg.Method2.Filters != nil {
+				filters.ApplyFilter(*cfg, u, "method2")
+			} else {
+				GetVal(u, searchfields, result, datelist, intlist, strlist)
+			}
+
 		}
 	case len(myargs) == 1:
 		u, err := client.Call(method, sessionkey, myargs[0])
 		checkprint(err, myargs)
 		if u != nil {
-			GetVal(u, searchfields, result, datelist, intlist, strlist)
+			//adding filter feature here
+			if cfg.Method2.Filters != nil {
+				filters.ApplyFilter(*cfg, u, "method2")
+			} else {
+				GetVal(u, searchfields, result, datelist, intlist, strlist)
+			}
+
 		}
 	case len(myargs) == 2:
 		u, err := client.Call(method, sessionkey, myargs[0], myargs[1])
 		checkprint(err, myargs)
 		if u != nil {
-			GetVal(u, searchfields, result, datelist, intlist, strlist)
+			//adding filter feature here
+			if cfg.Method2.Filters != nil {
+				filters.ApplyFilter(*cfg, u, "method2")
+			} else {
+				GetVal(u, searchfields, result, datelist, intlist, strlist)
+			}
+
 		}
 	case len(myargs) == 3:
 		u, err := client.Call(method, sessionkey, myargs[0], myargs[1], myargs[2])
 		checkprint(err, myargs)
 		if u != nil {
-			GetVal(u, searchfields, result, datelist, intlist, strlist)
+			//adding filter feature here
+			if cfg.Method2.Filters != nil {
+				filters.ApplyFilter(*cfg, u, "method2")
+			} else {
+				GetVal(u, searchfields, result, datelist, intlist, strlist)
+			}
+
 		}
 	case len(myargs) == 4:
 		u, err := client.Call(method, sessionkey, myargs[0], myargs[1], myargs[2], myargs[3])
 		checkprint(err, myargs)
 		if u != nil {
-			GetVal(u, searchfields, result, datelist, intlist, strlist)
+			//adding filter feature here
+			if cfg.Method2.Filters != nil {
+				filters.ApplyFilter(*cfg, u, "method2")
+			} else {
+				GetVal(u, searchfields, result, datelist, intlist, strlist)
+			}
+
 		}
 	case len(myargs) == 5:
 		u, err := client.Call(method, sessionkey, myargs[0], myargs[1], myargs[2], myargs[3], myargs[4])
 		checkprint(err, myargs)
 		if u != nil {
-			GetVal(u, searchfields, result, datelist, intlist, strlist)
+			//adding filter feature here
+			if cfg.Method2.Filters != nil {
+				filters.ApplyFilter(*cfg, u, "method2")
+			} else {
+				GetVal(u, searchfields, result, datelist, intlist, strlist)
+			}
+
 		}
 
 	}
@@ -166,7 +204,7 @@ func splitinputvar(v interface{}, resultsmethod1 *printresult.PrintResults, h in
 				return k, num
 			}
 		} else if strings.Contains(s, "bool") {
-			x := strings.Split(s, ".")
+			x :=    strings.Split(s, ".")
 			//fmt.Printf("x is: %v\n", x)
 			if len(x) != 0 {
 				if x[len(x)-1] == "true" || x[len(x)-1] == "1" {

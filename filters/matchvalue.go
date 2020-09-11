@@ -314,18 +314,53 @@ func ApplyFilter(cfg getyaml.Config, u xmlrpc.Value, methodname string) {
 	var SortedSearchFields sortSearchfielder = &searchlist
 	var result getValer = &R
 	var printfiltered printfilter = &R
-	if cfg.Method1.Filters != nil && cfg.Method1.Outvariables != nil && methodname == "method1" {
-		SortedSearchFields.sortOutputFields("method1", cfg)
-		fmt.Printf("\nsorted searchfields: %v\n", searchlist.Searchlist)
-		fmt.Printf("filters: ")
-		for a, b := range cfg.Method1.Filters {
-			fmt.Printf("\t%v: \t%v\n", a, b)
-			result.filterfields(a, b, u, searchlist.Searchlist)
+
+	if methodname == "method1" {
+		if cfg.Method1.Filters != nil && cfg.Method1.Outvariables != nil {
+			SortedSearchFields.sortOutputFields("method1", cfg)
+			fmt.Printf("\nsorted searchfields: %v\n", searchlist.Searchlist)
+			fmt.Printf("filters: ")
+			for a, b := range cfg.Method1.Filters {
+				fmt.Printf("\t%v: \t%v\n", a, b)
+				result.filterfields(a, b, u, searchlist.Searchlist)
+			}
+			fmt.Printf("output applyfilter:\n")
+
+			printfiltered.printfiltered(searchlist.Searchlist)
+
 		}
-		fmt.Printf("output applyfilter:\n")
+	}
 
-		printfiltered.printfiltered(searchlist.Searchlist)
+	if methodname == "method2" {
+		if cfg.Method2.Filters != nil && cfg.Method2.Outvariables != nil {
+			SortedSearchFields.sortOutputFields("method2", cfg)
+			fmt.Printf("\nsorted searchfields: %v\n", searchlist.Searchlist)
+			fmt.Printf("filters: ")
+			for a, b := range cfg.Method1.Filters {
+				fmt.Printf("\t%v: \t%v\n", a, b)
+				result.filterfields(a, b, u, searchlist.Searchlist)
+			}
+			fmt.Printf("output applyfilter:\n")
 
+			printfiltered.printfiltered(searchlist.Searchlist)
+
+		}
+	}
+
+	if methodname == "finalmethod" {
+		if cfg.Finalmethod.Filters != nil && cfg.Finalmethod.Outvariables != nil {
+			SortedSearchFields.sortOutputFields("finalmethod", cfg)
+			fmt.Printf("\nsorted searchfields: %v\n", searchlist.Searchlist)
+			fmt.Printf("filters: ")
+			for a, b := range cfg.Method1.Filters {
+				fmt.Printf("\t%v: \t%v\n", a, b)
+				result.filterfields(a, b, u, searchlist.Searchlist)
+			}
+			fmt.Printf("output applyfilter:\n")
+
+			printfiltered.printfiltered(searchlist.Searchlist)
+
+		}
 	}
 
 }

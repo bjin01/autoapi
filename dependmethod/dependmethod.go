@@ -51,12 +51,12 @@ func Dependmethod(inputsfinal map[string]interface{}, inputslist2 map[string]int
 						if cfg.Method2.Methodname != "" {
 							fmt.Printf("cfg.Method2.InputVars: %v\n", cfg.Method2.InputVars)
 							//fmt.Printf("%v\n", cfg.Method2.InputVars)
-							method2.Method2(cfg.Server.ApiUrl, cfg.Server.Username, cfg.Server.Password,
+							method2.Method2(cfg, cfg.Server.ApiUrl, cfg.Server.Username, cfg.Server.Password,
 								cfg.Method2.Methodname, cfg.Method2.InputVars, SortedMethod2Outvars, result2, resultsmethod1)
 						}
 						resultsMethod2 := printresult2.Printresult(result2, sort.SortSlice(cfg.Method2.Outvariables))
 						if cfg.Finalmethod.Methodname != "" {
-							finalmethod.Finalmethod(cfg.Server.ApiUrl, cfg.Server.Username, cfg.Server.Password,
+							finalmethod.Finalmethod(cfg, cfg.Server.ApiUrl, cfg.Server.Username, cfg.Server.Password,
 								cfg.Finalmethod.Methodname, cfg.Finalmethod.InputVars, SortedFinalmethodOutvars,
 								resultfinal, resultsmethod1, resultsMethod2)
 						}

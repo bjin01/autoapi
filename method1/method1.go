@@ -82,32 +82,62 @@ func Method1(cfg *getyaml.Config, url string, user string, password string, meth
 			u, err := client.Call(method, f.Text(), myargs[0], myargs[1])
 			checkprint(err, myargs)
 			if u != nil {
-				GetVal(u, searchfields, result, datelist, intlist, strlist)
+				//adding filter feature here
+				if cfg.Method1.Filters != nil {
+					filters.ApplyFilter(*cfg, u, "method1")
+				} else {
+					GetVal(u, searchfields, result, datelist, intlist, strlist)
+				}
+
 			}
 		case len(myargs) == 3:
 			u, err := client.Call(method, f.Text(), myargs[0], myargs[1], myargs[2])
 			checkprint(err, myargs)
 			if u != nil {
-				GetVal(u, searchfields, result, datelist, intlist, strlist)
+				//adding filter feature here
+				if cfg.Method1.Filters != nil {
+					filters.ApplyFilter(*cfg, u, "method1")
+				} else {
+					GetVal(u, searchfields, result, datelist, intlist, strlist)
+				}
+
 			}
 		case len(myargs) == 4:
 			u, err := client.Call(method, f.Text(), myargs[0], myargs[1], myargs[2], myargs[3])
 			checkprint(err, myargs)
 			if u != nil {
-				GetVal(u, searchfields, result, datelist, intlist, strlist)
+				//adding filter feature here
+				if cfg.Method1.Filters != nil {
+					filters.ApplyFilter(*cfg, u, "method1")
+				} else {
+					GetVal(u, searchfields, result, datelist, intlist, strlist)
+				}
+
 			}
 		case len(myargs) == 5:
 			u, err := client.Call(method, f.Text(), myargs[0], myargs[1], myargs[2], myargs[3], myargs[4])
 			checkprint(err, myargs)
 			if u != nil {
-				GetVal(u, searchfields, result, datelist, intlist, strlist)
+				//adding filter feature here
+				if cfg.Method1.Filters != nil {
+					filters.ApplyFilter(*cfg, u, "method1")
+				} else {
+					GetVal(u, searchfields, result, datelist, intlist, strlist)
+				}
+
 			}
 		}
 	} else {
 		u, err := client.Call(method, f.Text())
 		checkprint(err, myargs)
 		if u != nil {
-			GetVal(u, searchfields, result, datelist, intlist, strlist)
+			//adding filter feature here
+			if cfg.Method1.Filters != nil {
+				filters.ApplyFilter(*cfg, u, "method1")
+			} else {
+				GetVal(u, searchfields, result, datelist, intlist, strlist)
+			}
+
 		}
 		//fmt.Printf("result %v", u)
 	}
