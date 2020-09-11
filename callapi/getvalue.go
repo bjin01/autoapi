@@ -43,7 +43,7 @@ func (r *R) Printmethod1(cfg *C) error {
 
 func (methodvalues *methodinput) getvalue(field string, methodname string, index int) (interface{}, int) {
 	var val interface{}
-
+	fmt.Printf("test")
 	return val, 0
 }
 
