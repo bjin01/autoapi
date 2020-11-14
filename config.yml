@@ -6,39 +6,32 @@ server:
 method1:
   methodname: systemgroup.listActiveSystemsInGroup
   input_map:
-    1_systemGroupName: test2
+    1_systemGroupName: caasp
        
   out_variablenames:  
     - id
 
 
 method2:
-  methodname: system.scheduleSPMigration
+  methodname: system.getRelevantErrata
   input_map:
     1_serverid: method1.id
-    2_baseChannelLabel:  sle-product-sles_sap15-sp2-pool-x86_64
-    3_optionalChildChannels:
-      - sle-manager-tools15-pool-x86_64-sap-sp2
-      - sle-manager-tools15-updates-x86_64-sap-sp2
-      - sle-module-basesystem15-sp2-pool-x86_64-sap
-      - sle-module-basesystem15-sp2-updates-x86_64-sap
-      - sle-module-containers15-sp2-pool-x86_64-sap
-      - sle-module-containers15-sp2-updates-x86_64-sap
-      - sle-module-desktop-applications15-sp2-pool-x86_64-sap
-      - sle-module-desktop-applications15-sp2-updates-x86_64-sap
-      - sle-module-python2-15-sp2-pool-x86_64-sap
-      - sle-module-python2-15-sp2-updates-x86_64-sap
-      - sle-module-sap-applications15-sp2-pool-x86_64
-      - sle-module-sap-applications15-sp2-updates-x86_64
-      - sle-module-server-applications15-sp2-pool-x86_64-sap
-      - sle-module-server-applications15-sp2-updates-x86_64-sap
-      - sle-product-ha15-sp2-pool-x86_64-sap
-      - sle-product-ha15-sp2-updates-x86_64-sap
-      - sle-product-sles_sap15-sp2-updates-x86_64 
-    4_dryRun: bool.true
-    5_earliestOccurrence: datetime.2020-09-23T09:45:00
 
+  out_variablenames: 
+    - id
+    - advisory_synopsis
+    - advisory_name
+    - advisory_type
+
+finalmethod:
+  methodname: system.scheduleApplyErrata
+  options:
+    meth2_depend_meth1: true
+  input_map:
+    1_serverid: method1.id
+    2_errataId: method2.array.id
+    3_earliestOccurrence: datetime.2020-10-23T09:45:00
 
   out_variablenames: 
     - actionId
-
+    

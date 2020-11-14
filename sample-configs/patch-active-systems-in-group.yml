@@ -6,7 +6,7 @@ server:
 method1:
   methodname: systemgroup.listActiveSystemsInGroup
   input_map:
-    1_systemGroupName: test2
+    1_systemGroupName: caasp
        
   out_variablenames:  
     - id
@@ -30,7 +30,7 @@ finalmethod:
   input_map:
     1_serverid: method1.id
     2_errataId: method2.array.id
-    3_earliestOccurrence: datetime.2020-08-23T09:45:00
+    3_earliestOccurrence: datetime.2020-10-23T09:45:00
 
   out_variablenames: 
     - actionId

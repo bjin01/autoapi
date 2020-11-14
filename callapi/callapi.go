@@ -12,7 +12,7 @@ import (
 type Caller interface {
 	Callapi(method string, result xmlrpc.Value, result2 xmlrpc.Value) (xmlrpc.Value, error)
 	runapi(methodname string, myargs []interface{}) (xmlrpc.Value, error)
-	getinputargs(methodname string, index int) ([]interface{}, int)
+	getinputargs(methodname string, index int, current_methodinput methodinput) ([]interface{}, int)
 }
 
 type methodinputer interface {
@@ -144,6 +144,7 @@ func (Cfg *C) Callapi(method string, result xmlrpc.Value, result2 xmlrpc.Value) 
 				result:          result,
 			}
 		}
+
 		if result2 != nil && result != nil {
 			current_methodinput = methodinput{
 				apicallname:     Cfg.Cfg.Method2.Methodname,
@@ -159,6 +160,10 @@ func (Cfg *C) Callapi(method string, result xmlrpc.Value, result2 xmlrpc.Value) 
 			fmt.Printf("lets see the current_methodinput.result: %v\n", current_methodinput.result.Values())
 		}
 
+		if current_methodinput.result2 != nil {
+			fmt.Printf("lets see the current_methodinput.result2: %v\n", current_methodinput.result2.Values())
+		}
+
 		myargs, n := Cfg.getinputargs(method, 0, current_methodinput)
 		if n != 0 {
 			for i := 0; i < n; i++ {
@@ -166,8 +171,10 @@ func (Cfg *C) Callapi(method string, result xmlrpc.Value, result2 xmlrpc.Value) 
 				u, err := Cfg.runapi(method, myargs)
 				checkprint(err, myargs)
 
-				fmt.Println(u.Values())
+				fmt.Println(len(u.Values()), "results found.")
+				return u, err
 			}
+
 		} else {
 			u, err := Cfg.runapi(method, myargs)
 			checkprint(err, myargs)

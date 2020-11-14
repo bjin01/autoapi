@@ -62,6 +62,7 @@ func main() {
 	}
 
 	u2, err := mycall.Callapi("method2", u, nil)
+	fmt.Println("finalmethod: ", u2)
 	check(err)
 	if u2 != nil {
 		result := callapi.R{
