@@ -26,18 +26,34 @@ type Result struct {
 }
 
 func (r *R) Printfinalmethod(cfg *C) error {
-
+	log.Printf("\nfinalmethod output: \n")
+	//fmt.Printf("%v\n", r.U.Values())
+	r.PrintValue(cfg, "finalmethod")
+	/* for i := 0; i < len(cfg.Cfg.Finalmethod.Outvariables); i++ {
+		fmt.Printf("fieldname: %v\n", cfg.Cfg.Finalmethod.Outvariables[i])
+	} */
 	return nil
 }
 
 func (r *R) Printmethod2(cfg *C) error {
-
+	log.Printf("\nmethod2 output: \n")
+	//fmt.Printf("%v\n", r.U.Values())
+	r.PrintValue(cfg, "method2")
+	/* for i := 0; i < len(cfg.Cfg.Method2.Outvariables); i++ {
+		fmt.Printf("fieldname: %v\n", cfg.Cfg.Method2.Outvariables[i])
+		r.PrintValue(cfg, "method2")
+	} */
 	return nil
 }
 
 func (r *R) Printmethod1(cfg *C) error {
-	log.Printf("method1 output: \n")
-	fmt.Printf("%v\n", r.U.Values())
+	log.Printf("\nmethod1 output: \n")
+	//fmt.Printf("%v\n", r.U.Values())
+	r.PrintValue(cfg, "method1")
+	/* for i := 0; i < len(cfg.Cfg.Method1.Outvariables); i++ {
+		fmt.Printf("fieldname: %v\n", cfg.Cfg.Method1.Outvariables[i])
+	} */
+
 	return nil
 }
 
@@ -48,14 +64,14 @@ func (methodvalues *methodinput) getvalue(field string, methodname string, index
 	if methodname == "method1" {
 		val_length = len(methodvalues.result.Values())
 		getval_value = GetVal(methodvalues.result, field, index)
-		fmt.Printf("\n%v, %v: %v, index: %v\n", methodname, field, getval_value, index)
+		//fmt.Printf("\n%v, %v: %v, index: %v\n", methodname, field, getval_value, index)
 	}
 
 	if methodname == "method2" {
-		fmt.Println("getvalue method2 is here")
+		//fmt.Println("getvalue method2 is here")
 		val_length = len(methodvalues.result2.Values())
 		getval_value = GetVal(methodvalues.result2, field, index)
-		fmt.Printf("\n%v, %v: %v, index: %v\n", methodname, field, getval_value, index)
+		//fmt.Printf("\n%v, %v: %v, index: %v\n", methodname, field, getval_value, index)
 	}
 
 	/*if methodname == "finalmethod" {
@@ -75,11 +91,11 @@ func (methodvalues *methodinput) getarray(field string, methodname string, index
 		val_length = len(methodvalues.result.Values())
 		temp_val = GetVal(methodvalues.result, field, index)
 		getval_value = append(getval_value, temp_val)
-		fmt.Printf("\n%v, %v: %v, index: %v\n", methodname, field, getval_value, index)
+		//fmt.Printf("\n%v, %v: %v, index: %v\n", methodname, field, getval_value, index)
 	}
 
 	if methodname == "method2" {
-		fmt.Println("getarray method2 is here")
+		//fmt.Println("getarray method2 is here")
 		val_length = len(methodvalues.result2.Values())
 		if val_length != 0 {
 			for i := 0; i < val_length; i++ {
@@ -90,7 +106,7 @@ func (methodvalues *methodinput) getarray(field string, methodname string, index
 			temp_val = GetVal(methodvalues.result2, field, index)
 			getval_value = append(getval_value, temp_val)
 		}
-		fmt.Printf("\n%v, %v: %v, index: %v\n", methodname, field, getval_value, index)
+		//fmt.Printf("\n%v, %v: %v, index: %v\n", methodname, field, getval_value, index)
 	}
 
 	/*if methodname == "finalmethod" {
@@ -103,7 +119,7 @@ func (methodvalues *methodinput) getarray(field string, methodname string, index
 }
 
 func GetVal(v xmlrpc.Value, searchfield string, index int) interface{} {
-	fmt.Printf("lets see here %v %v\n", len(v.Values()), len(v.Members()))
+	//fmt.Printf("lets see here %v %v\n", len(v.Values()), len(v.Members()))
 	var return_val interface{}
 	if len(v.Values()) == 0 && len(v.Members()) != 0 {
 		x := v.Members()

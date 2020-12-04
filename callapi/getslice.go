@@ -8,8 +8,11 @@ import (
 func getslice(inputvars map[string]interface{}, index int, current_methodinput methodinput) ([]interface{}, int) {
 	var myargs []interface{}
 	var length int
-	for _, y := range inputvars {
-		s, ok := y.(string)
+
+	sorted_keys := sortdict(inputvars)
+
+	for _, y := range sorted_keys {
+		s, ok := inputvars[y].(string)
 		if ok == true {
 			if strings.Contains(s, "method1") {
 				x := strings.Split(s, ".")

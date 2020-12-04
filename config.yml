@@ -30,7 +30,7 @@ finalmethod:
   input_map:
     1_serverid: method1.id
     2_errataId: method2.array.id
-    3_earliestOccurrence: datetime.2020-10-23T09:45:00
+    3_earliestOccurrence: datetime.2020-12-23T09:45:00
 
   out_variablenames: 
     - actionId

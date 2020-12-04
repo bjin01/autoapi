@@ -139,16 +139,16 @@ func (Cfg *C) Callapi(method string, result xmlrpc.Value, result2 xmlrpc.Value) 
 		}
 		if result != nil {
 			current_methodinput = methodinput{
-				apicallname:     Cfg.Cfg.Method2.Methodname,
-				outputvariables: Cfg.Cfg.Method2.Outvariables,
+				apicallname:     Cfg.Cfg.Finalmethod.Methodname,
+				outputvariables: Cfg.Cfg.Finalmethod.Outvariables,
 				result:          result,
 			}
 		}
 
 		if result2 != nil && result != nil {
 			current_methodinput = methodinput{
-				apicallname:     Cfg.Cfg.Method2.Methodname,
-				outputvariables: Cfg.Cfg.Method2.Outvariables,
+				apicallname:     Cfg.Cfg.Finalmethod.Methodname,
+				outputvariables: Cfg.Cfg.Finalmethod.Outvariables,
 				result:          result,
 				result2:         result2,
 			}
@@ -167,17 +167,33 @@ func (Cfg *C) Callapi(method string, result xmlrpc.Value, result2 xmlrpc.Value) 
 		myargs, n := Cfg.getinputargs(method, 0, current_methodinput)
 		if n != 0 {
 			for i := 0; i < n; i++ {
-				myargs, _ := Cfg.getinputargs(method, i, current_methodinput)
+				var myargs []interface{}
+				myargs, _ = Cfg.getinputargs(method, i, current_methodinput)
 				u, err := Cfg.runapi(method, myargs)
 				checkprint(err, myargs)
 
-				fmt.Println(len(u.Values()), "results found.")
-				return u, err
+				var print_u Printvalue
+				if u != nil {
+					result := R{
+						U: u,
+					}
+					print_u = &result
+					err := print_u.Printmethod2(Cfg)
+					check(err)
+
+				}
+				if u != nil {
+					Call_api_2(Cfg, method, i, current_methodinput, u)
+				} else {
+					return nil, err
+				}
+				//return u, err
 			}
 
 		} else {
 			u, err := Cfg.runapi(method, myargs)
-			checkprint(err, myargs)
+			//checkprint(err, myargs)
+			check(err)
 			return u, err
 		}
 
