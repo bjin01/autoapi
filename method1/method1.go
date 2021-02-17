@@ -52,7 +52,7 @@ func Method1(cfg *getyaml.Config, url string, user string, password string, meth
 
 	if len(inputmaps) != 0 {
 		keys := []string{}
-		for key, _ := range inputmaps {
+		for key := range inputmaps {
 			keys = append(keys, key)
 		}
 		sort.Strings(keys)

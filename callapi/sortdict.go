@@ -9,7 +9,7 @@ func sortdict(inputvars map[string]interface{}) []string {
 	//var sorted_inputvars []interface{}
 	var keylist []string
 
-	for a, _ := range inputvars {
+	for a := range inputvars {
 		keylist = append(keylist, a)
 		sort.Strings(keylist)
 		fmt.Printf("see the sorted keylist: %v\n", keylist)
