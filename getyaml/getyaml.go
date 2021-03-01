@@ -11,10 +11,10 @@ import (
 
 type Config struct {
 	Server struct {
-		Port     string `yaml:"port"`
 		ApiUrl   string `yaml:"apiurl"`
 		Username string `yaml:"username"`
 		Password string `yaml:"password"`
+		Port     string `yaml:"port"`
 	} `yaml:"server"`
 
 	Method1 struct {
