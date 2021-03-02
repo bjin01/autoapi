@@ -14,7 +14,7 @@ type Config struct {
 		ApiUrl   string `yaml:"apiurl"`
 		Username string `yaml:"username"`
 		Password string `yaml:"password"`
-		Port     string `yaml:"port"`
+		Ports    string `yaml:"port"`
 	} `yaml:"server"`
 
 	Method1 struct {
